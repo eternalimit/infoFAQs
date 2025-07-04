@@ -141,7 +141,7 @@
     .news-card img {
       width: 120px;
       max-width: 30%;
-      min-width: 60px;
+      min-width: 80px;
       height: auto;
       object-fit: contain;
       border-top-left-radius: 6px;
@@ -152,14 +152,13 @@
     }
     .news-card a {
       flex: 1 1 200px;
-      min-width: 120px;
+      min-width: 150px;
       padding: 10px;
       text-decoration: none;
       color: #003366;
       word-break: break-word;
-      overflow-wrap: anywhere;
-      display: block;
-      font-weight: bold;
+      display: flex;
+      align-items: center;
     }
     .news-card:hover {
       box-shadow: 0 4px 12px rgba(0,0,0,0.3);
@@ -169,11 +168,7 @@
     }
     @media (max-width: 400px) {
       .news-card img {
-        min-width: 50px;
-        max-width: 80px;
-      }
-      .news-card a {
-        min-width: 100px;
+        max-width: 100px;
       }
     }
   </style>
@@ -219,8 +214,12 @@
     </section>
     <section>
       <h2>Testimonials</h2>
-      <blockquote>"InfoFAQs saved me hours every week." — Professional Writer</blockquote>
-      <blockquote>"My customers love the instant answers!" — Business Owner</blockquote>
+      <blockquote>
+        "InfoFAQs saved me hours every week." — Professional Writer
+      </blockquote>
+      <blockquote>
+        "My customers love the instant answers!" — Business Owner
+      </blockquote>
     </section>
     <section>
       <h2>FAQ</h2>
@@ -234,6 +233,7 @@
       <h2>Developer Portal</h2>
       <p>Visit our <a href="/dev">Developer Portal</a> to get API keys, documentation, and community support.</p>
     </section>
+    <h2 style="color: #003366; text-align: center; margin-top: 40px;">Latest Headlines</h2>
     <div id="news-feed">Loading headlines...</div>
   </main>
   <footer>
