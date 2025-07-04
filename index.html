@@ -55,7 +55,6 @@
       border-radius: 6px;
       max-width: 300px;
       transition: background-color 0.3s ease;
-      text-align: center;
     }
     .menu a:hover {
       background-color: #0056b3;
@@ -130,7 +129,7 @@
       width: 100%;
       display: flex;
       flex-direction: row;
-      flex-wrap: wrap;
+      flex-wrap: wrap;  /* allows text to wrap below on small screens */
       align-items: center;
       color: #003366;
       box-shadow: 0 2px 8px rgba(0,0,0,0.15);
@@ -157,8 +156,9 @@
       text-decoration: none;
       color: #003366;
       word-break: break-word;
-      display: flex;
-      align-items: center;
+      overflow-wrap: anywhere;
+      display: block;  /* more robust for wrapping */
+      font-weight: bold;
     }
     .news-card:hover {
       box-shadow: 0 4px 12px rgba(0,0,0,0.3);
