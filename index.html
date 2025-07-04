@@ -55,6 +55,7 @@
       border-radius: 6px;
       max-width: 300px;
       transition: background-color 0.3s ease;
+      text-align: center;
     }
     .menu a:hover {
       background-color: #0056b3;
@@ -129,7 +130,7 @@
       width: 100%;
       display: flex;
       flex-direction: row;
-      flex-wrap: wrap;  /* allows text to wrap below on small screens */
+      flex-wrap: wrap;
       align-items: center;
       color: #003366;
       box-shadow: 0 2px 8px rgba(0,0,0,0.15);
@@ -140,7 +141,7 @@
     .news-card img {
       width: 120px;
       max-width: 30%;
-      min-width: 80px;
+      min-width: 60px;
       height: auto;
       object-fit: contain;
       border-top-left-radius: 6px;
@@ -151,13 +152,13 @@
     }
     .news-card a {
       flex: 1 1 200px;
-      min-width: 150px;
+      min-width: 120px;
       padding: 10px;
       text-decoration: none;
       color: #003366;
       word-break: break-word;
       overflow-wrap: anywhere;
-      display: block;  /* more robust for wrapping */
+      display: block;
       font-weight: bold;
     }
     .news-card:hover {
@@ -168,7 +169,11 @@
     }
     @media (max-width: 400px) {
       .news-card img {
-        max-width: 100px;
+        min-width: 50px;
+        max-width: 80px;
+      }
+      .news-card a {
+        min-width: 100px;
       }
     }
   </style>
@@ -214,12 +219,8 @@
     </section>
     <section>
       <h2>Testimonials</h2>
-      <blockquote>
-        "InfoFAQs saved me hours every week." — Professional Writer
-      </blockquote>
-      <blockquote>
-        "My customers love the instant answers!" — Business Owner
-      </blockquote>
+      <blockquote>"InfoFAQs saved me hours every week." — Professional Writer</blockquote>
+      <blockquote>"My customers love the instant answers!" — Business Owner</blockquote>
     </section>
     <section>
       <h2>FAQ</h2>
