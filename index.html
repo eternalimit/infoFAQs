@@ -177,7 +177,9 @@
   <header>
     <nav aria-label="Main navigation">
       <a href="https://infofaqs.com" target="_blank" rel="noopener noreferrer">Home</a>
-      <a href="https://chatgpt.com/g/g-68589d1f9e6c8191bf9268118b6c53f1-claritytm" target="_blank" rel="noopener noreferrer">Sign In</a>
+      <a href="https://chat.openai.com/gpts?gpt_id=g-68589d1f9e6c8191bf9268118b6c53f1" target="_blank" rel="noopener noreferrer">
+        Sign In to Clarity GPT
+      </a>
       <a href="/support">Support</a>
       <a href="/start">Get Started</a>
       <a href="/dev">Developer</a>
@@ -233,8 +235,11 @@
       <h2>Developer Portal</h2>
       <p>Visit our <a href="/dev">Developer Portal</a> to get API keys, documentation, and community support.</p>
     </section>
-    <h2 style="color: #003366; text-align: center; margin-top: 40px;">Latest Headlines</h2>
-    <div id="news-feed">Loading headlines...</div>
+    <h2 id="latest-headlines" style="color: #003366; text-align: center; margin-top: 40px;">Latest Headlines</h2>
+    <p style="text-align:center; font-size:0.9em; margin-top:5px;">
+      Requires ChatGPT login to view GPT links.
+    </p>
+    <div id="news-feed" aria-labelledby="latest-headlines">Loading headlines...</div>
   </main>
   <footer>
     <a href="/about">About</a> |
