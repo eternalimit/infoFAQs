@@ -5,13 +5,91 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Ask a Question - InfoFAQs</title>
   <style>
-    body { font-family: Arial, sans-serif; text-align: center; margin: 40px; }
-    a { color: #007BFF; text-decoration: none; }
+    body { 
+      font-family: Arial, sans-serif; 
+      margin: 0;
+      background-color: #ffffff; 
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header, footer {
+      background-color: #003366;
+      color: white;
+      text-align: center;
+      padding: 1em;
+    }
+    header a, footer a {
+      color: white;
+      text-decoration: none;
+      margin: 0 0.5em;
+    }
+    header a:hover, footer a:hover {
+      text-decoration: underline;
+    }
+    main {
+      flex: 1;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .logo {
+      width: 120px;
+      margin: 20px auto;
+      display: block;
+    }
+    h1 {
+      color: #003366;
+      margin-top: 20px;
+    }
+    .cta-button {
+      display: inline-block;
+      margin: 30px auto;
+      padding: 12px 24px;
+      background-color: #007BFF;
+      color: white;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 1em;
+      transition: background-color 0.3s ease;
+    }
+    .cta-button:hover {
+      background-color: #0056b3;
+    }
+    .back-link {
+      display: inline-block;
+      margin-top: 20px;
+      color: #007BFF;
+      text-decoration: none;
+      font-size: 0.9em;
+    }
+    .back-link:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
-  <h1>Ask a Question</h1>
-  <p>This feature is coming soon! Stay tuned.</p>
-  <a href="index.html">Back to Dashboard</a>
+  <header>
+    <a href="index.html">← Back to Dashboard</a>
+  </header>
+  <main>
+    <img src="images/infoFAQs_logo_full.png" alt="InfoFAQs Logo" class="logo" />
+    <h1>Ask a Question</h1>
+    <p>Get instant answers from ClarityTM, your AI assistant.</p>
+    <a 
+      href="https://chatgpt.com/g/g-68589d1f9e6c8191bf9268118b6c53f1-claritytm" 
+      target="_blank"
+      rel="noopener noreferrer"
+      class="cta-button"
+    >
+      Start Chat with ClarityTM
+    </a>
+  </main>
+  <footer>
+    <a href="/about">About</a> |
+    <a href="/privacy">Privacy</a> |
+    <a href="/contact">Contact</a>
+    <p style="margin-top:10px;">&copy; 2025 InfoFAQs</p>
+  </footer>
 </body>
 </html>

@@ -5,13 +5,102 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Knowledge Base - InfoFAQs</title>
   <style>
-    body { font-family: Arial, sans-serif; text-align: center; margin: 40px; }
-    a { color: #007BFF; text-decoration: none; }
+    body { 
+      font-family: Arial, sans-serif; 
+      margin: 0;
+      background-color: #ffffff; 
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header, footer {
+      background-color: #003366;
+      color: white;
+      text-align: center;
+      padding: 1em;
+    }
+    header a, footer a {
+      color: white;
+      text-decoration: none;
+      margin: 0 0.5em;
+    }
+    header a:hover, footer a:hover {
+      text-decoration: underline;
+    }
+    main {
+      flex: 1;
+      padding: 40px 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .logo {
+      width: 120px;
+      display: block;
+      margin: 20px auto;
+    }
+    h1 {
+      color: #003366;
+      margin-top: 20px;
+      text-align: center;
+    }
+    section {
+      text-align: left;
+      margin-top: 30px;
+      line-height: 1.6;
+    }
+    a { 
+      color: #007BFF; 
+      text-decoration: none; 
+    }
+    a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
-  <h1>Knowledge Base</h1>
-  <p>This feature is coming soon! Stay tuned.</p>
-  <a href="index.html">Back to Dashboard</a>
+  <header>
+    <a href="index.html">← Back to Dashboard</a>
+  </header>
+  <main>
+    <img src="images/infoFAQs_logo_full.png" alt="InfoFAQs Logo" class="logo" />
+    <h1>Knowledge Base: ClarityTM</h1>
+    <section>
+      <h2>What is ClarityTM?</h2>
+      <p>ClarityTM is a custom-built conversational AI, based on GPT-4 Turbo technology, designed to help you write, edit, answer questions, and navigate complex topics. It combines a friendly, conversational approach with a powerful FAQ system for maximum clarity and confidence.</p>
+
+      <h2>Key Features</h2>
+      <ul>
+        <li>AI-powered writing and editing</li>
+        <li>Dynamic FAQ and knowledge support</li>
+        <li>Security-focused guest mode</li>
+        <li>Watchdog protocol for safe and trusted conversations</li>
+      </ul>
+
+      <h2>How Does ClarityTM Work?</h2>
+      <p>ClarityTM interacts through a simple, secure JSON-driven framework. It uses the latest GPT-4 Turbo conversational engine to provide responses and suggestions while respecting strict security and privacy rules.</p>
+
+      <h2>How Can I Use ClarityTM?</h2>
+      <p>You can access ClarityTM directly through the InfoFAQs platform or by visiting the external link below. It works seamlessly as both a writing assistant and a knowledge-based AI.</p>
+      <p>
+        <a 
+          href="https://chatgpt.com/g/g-68589d1f9e6c8191bf9268118b6c53f1-claritytm" 
+          target="_blank" 
+          rel="noopener noreferrer"
+        >
+          Start Using ClarityTM
+        </a>
+      </p>
+
+      <h2>Why Choose ClarityTM?</h2>
+      <p>ClarityTM was designed with the highest focus on transparency, clarity, and safety. It ensures every answer is intention-aligned and reduces confusion when you need solid, trustworthy answers.</p>
+    </section>
+  </main>
+  <footer>
+    <a href="/about">About</a> |
+    <a href="/privacy">Privacy</a> |
+    <a href="/contact">Contact</a>
+    <p style="margin-top:10px;">&copy; 2025 InfoFAQs</p>
+  </footer>
 </body>
 </html>

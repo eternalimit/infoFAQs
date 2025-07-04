@@ -1,1 +1,13 @@
-style
+.menu a {
+  display: block;
+  margin: 10px auto;
+  padding: 10px 20px;
+  background-color: #007BFF;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  max-width: 300px;
+}
+.menu a:hover {
+  background-color: #0056b3;
+}
