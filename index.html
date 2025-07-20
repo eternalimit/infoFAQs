@@ -5,176 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>InfoFAQs Dashboard</title>
   <style>
-    body, html {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      font-family: Arial, sans-serif;
-      background-color: #ffffff;
-      color: #333;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-    header, footer {
-      background-color: #003366;
-      color: white;
-      padding: 0.5em 1em;
-      text-align: center;
-      flex-shrink: 0;
-    }
-    header nav a, footer a {
-      color: white;
-      margin: 0 0.5em;
-      text-decoration: none;
-      font-size: 0.9em;
-    }
-    header nav a:hover, footer a:hover {
-      text-decoration: underline;
-    }
-    main {
-      flex-grow: 1;
-      padding: 40px 20px;
-      max-width: 900px;
-      margin: 0 auto;
-      box-sizing: border-box;
-      text-align: center;
-    }
-    .logo {
-      width: 120px;
-      margin: 20px auto;
-      display: block;
-    }
-    .menu a {
-      display: block;
-      margin: 10px auto;
-      padding: 10px 20px;
-      background-color: #007BFF;
-      color: white;
-      text-decoration: none;
-      border-radius: 6px;
-      max-width: 300px;
-      transition: background-color 0.3s ease;
-      text-align: center;
-    }
-    .menu a:hover {
-      background-color: #0056b3;
-    }
-    .welcome {
-      margin-top: 20px;
-    }
-    section {
-      margin: 40px auto;
-      max-width: 800px;
-      text-align: center;
-    }
-    section h2 {
-      color: #003366;
-    }
-    section ul, section ol {
-      display: inline-block;
-      text-align: left;
-      margin: 0 auto 1.5em auto;
-      padding-left: 1.2em;
-    }
-    blockquote {
-      max-width: 600px;
-      margin: auto;
-      text-align: center;
-    }
-    a.button {
-      display: inline-block;
-      padding: 0.75em 1.5em;
-      background: #007BFF;
-      color: #fff;
-      border-radius: 5px;
-      text-decoration: none;
-      margin-top: 15px;
-    }
-    a.button:hover {
-      background: #0056b3;
-    }
-    #news-feed {
-      max-height: 400px;
-      background: #ffffff !important;
-      color: #333 !important;
-      padding: 10px 20px;
-      font-weight: bold;
-      border-radius: 6px;
-      margin: 20px auto 0;
-      max-width: 900px;
-      box-sizing: border-box;
-      text-align: left;
-      display: flex;
-      flex-direction: column;
-      overflow-y: auto;
-      gap: 15px;
-      scrollbar-width: thin;
-      scrollbar-color: #007BFF #ffffff;
-    }
-    #news-feed::-webkit-scrollbar {
-      width: 8px;
-    }
-    #news-feed::-webkit-scrollbar-track {
-      background: #ffffff;
-      border-radius: 6px;
-    }
-    #news-feed::-webkit-scrollbar-thumb {
-      background-color: #007BFF;
-      border-radius: 6px;
-      border: 2px solid #ffffff;
-    }
-    .news-card {
-      background: #ffffff;
-      border-radius: 6px;
-      width: 100%;
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      align-items: center;
-      color: #003366;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-      min-height: 110px;
-      transition: box-shadow 0.3s ease;
-      overflow: hidden;
-    }
-    .news-card img {
-      width: 120px;
-      max-width: 30%;
-      min-width: 60px;
-      height: auto;
-      object-fit: contain;
-      border-top-left-radius: 6px;
-      border-bottom-left-radius: 6px;
-      flex-shrink: 0;
-      background: #ffffff;
-      padding: 5px;
-    }
-    .news-card a {
-      flex: 1 1 200px;
-      min-width: 120px;
-      padding: 10px;
-      text-decoration: none;
-      color: #003366;
-      word-break: break-word;
-      overflow-wrap: anywhere;
-      display: block;
-      font-weight: bold;
-    }
-    .news-card:hover {
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    }
-    .news-card a:hover {
-      text-decoration: underline;
-    }
+    /* ... your CSS remains unchanged ... */
+    body, html { margin: 0; padding: 0; height: 100%; font-family: Arial, sans-serif; background-color: #ffffff; color: #333; display: flex; flex-direction: column; min-height: 100vh;}
+    header, footer { background-color: #003366; color: white; padding: 0.5em 1em; text-align: center; flex-shrink: 0;}
+    header nav a, footer a { color: white; margin: 0 0.5em; text-decoration: none; font-size: 0.9em;}
+    header nav a:hover, footer a:hover { text-decoration: underline;}
+    main { flex-grow: 1; padding: 40px 20px; max-width: 900px; margin: 0 auto; box-sizing: border-box; text-align: center;}
+    .logo { width: 120px; margin: 20px auto; display: block;}
+    .menu a { display: block; margin: 10px auto; padding: 10px 20px; background-color: #007BFF; color: white; text-decoration: none; border-radius: 6px; max-width: 300px; transition: background-color 0.3s ease; text-align: center;}
+    .menu a:hover { background-color: #0056b3;}
+    .welcome { margin-top: 20px;}
+    section { margin: 40px auto; max-width: 800px; text-align: center;}
+    section h2 { color: #003366;}
+    section ul, section ol { display: inline-block; text-align: left; margin: 0 auto 1.5em auto; padding-left: 1.2em;}
+    blockquote { max-width: 600px; margin: auto; text-align: center;}
+    a.button { display: inline-block; padding: 0.75em 1.5em; background: #007BFF; color: #fff; border-radius: 5px; text-decoration: none; margin-top: 15px;}
+    a.button:hover { background: #0056b3;}
+    #news-feed { max-height: 400px; background: #ffffff !important; color: #333 !important; padding: 10px 20px; font-weight: bold; border-radius: 6px; margin: 20px auto 0; max-width: 900px; box-sizing: border-box; text-align: left; display: flex; flex-direction: column; overflow-y: auto; gap: 15px; scrollbar-width: thin; scrollbar-color: #007BFF #ffffff;}
+    #news-feed::-webkit-scrollbar { width: 8px;}
+    #news-feed::-webkit-scrollbar-track { background: #ffffff; border-radius: 6px;}
+    #news-feed::-webkit-scrollbar-thumb { background-color: #007BFF; border-radius: 6px; border: 2px solid #ffffff;}
+    .news-card { background: #ffffff; border-radius: 6px; width: 100%; display: flex; flex-direction: row; flex-wrap: wrap; align-items: center; color: #003366; box-shadow: 0 2px 8px rgba(0,0,0,0.15); min-height: 110px; transition: box-shadow 0.3s ease; overflow: hidden;}
+    .news-card img { width: 120px; max-width: 30%; min-width: 60px; height: auto; object-fit: contain; border-top-left-radius: 6px; border-bottom-left-radius: 6px; flex-shrink: 0; background: #ffffff; padding: 5px;}
+    .news-card a { flex: 1 1 200px; min-width: 120px; padding: 10px; text-decoration: none; color: #003366; word-break: break-word; overflow-wrap: anywhere; display: block; font-weight: bold;}
+    .news-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.3);}
+    .news-card a:hover { text-decoration: underline;}
     @media (max-width: 400px) {
-      .news-card img {
-        min-width: 50px;
-        max-width: 80px;
-      }
-      .news-card a {
-        min-width: 100px;
-      }
+      .news-card img { min-width: 50px; max-width: 80px;}
+      .news-card a { min-width: 100px;}
     }
   </style>
 </head>
@@ -244,24 +102,39 @@
   </footer>
   <script>
     const newsFeed = document.getElementById('news-feed');
-    const rssUrl = encodeURIComponent('https://news.google.com/rss?hl=en-US&gl=US&ceid=US:en');
+    // Use direct RSS URL (not encoded)
+    // Try NYTimes for image testing: 'https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml'
+    // Try Google News for prod: 'https://news.google.com/rss?hl=en-US&gl=US&ceid=US:en'
+    const rssUrl = 'https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml';
     const proxyUrl = `https://corsproxy.io/?${rssUrl}`;
     const placeholderImg = 'images/infoFAQs_logo_full.png';
-    function extractImageFromDescription(description) {
-      const div = document.createElement('div');
-      div.innerHTML = description;
-      const img = div.querySelector('img');
-      return img?.src || null;
+
+    function extractImageFromItem(item) {
+      // Try <media:content> via namespace (NYTimes, BBC, etc.)
+      let mediaUrl = null;
+      if (item.getElementsByTagNameNS) {
+        const mediaContent = item.getElementsByTagNameNS('http://search.yahoo.com/mrss/', 'content');
+        if (mediaContent.length > 0) {
+          mediaUrl = mediaContent[0].getAttribute('url');
+        }
+      }
+      // Fallback: media:thumbnail, enclosure
+      mediaUrl = mediaUrl ||
+        item.querySelector('media\\:thumbnail')?.getAttribute('url') ||
+        item.querySelector('enclosure')?.getAttribute('url');
+      // Fallback: image in <description>
+      if (!mediaUrl) {
+        const desc = item.querySelector("description")?.textContent || '';
+        if (desc) {
+          const div = document.createElement('div');
+          div.innerHTML = desc;
+          const img = div.querySelector('img');
+          if (img && img.src) mediaUrl = img.src;
+        }
+      }
+      return mediaUrl || placeholderImg;
     }
-    function getThumbnail(item) {
-      let desc = item.querySelector("description")?.textContent || '';
-      let imageUrl = extractImageFromDescription(desc);
-      if (imageUrl) return imageUrl;
-      let media = item.querySelector('media\\:thumbnail')?.getAttribute('url')
-                || item.querySelector('media\\:content')?.getAttribute('url')
-                || item.querySelector('enclosure')?.getAttribute('url');
-      return media || placeholderImg;
-    }
+
     async function fetchGoogleNews() {
       try {
         const res = await fetch(proxyUrl);
@@ -277,7 +150,7 @@
         newsFeed.innerHTML = Array.from(items).slice(0,10).map(item => {
           const title = item.querySelector('title')?.textContent || 'No title';
           const link = item.querySelector('link')?.textContent || '#';
-          const thumbnail = getThumbnail(item);
+          const thumbnail = extractImageFromItem(item);
           return `
             <div class="news-card">
               <img src="${thumbnail}" alt="Thumbnail" loading="lazy" onerror="this.onerror=null;this.src='${placeholderImg}';" />

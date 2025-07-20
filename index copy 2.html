@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>News Headlines Table with Images</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0; padding: 20px;
+      background: #f5f7fa;
+      color: #222;
+    }
+    h1 {
+      text-align: center;
+      color: #003366;
+      margin-bottom: 30px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 0 auto 30px auto;
+    }
+    thead {
+      background: #003366;
+      color: #fff;
+    }
+    th, td {
+      padding: 14px 12px;
+      text-align: left;
+    }
+    th {
+      font-size: 1.1em;
+    }
+    tbody tr {
+      border-bottom: 1px solid #eee;
+    }
+    tr:last-child {
+      border-bottom: none;
+    }
+    img.news-thumb {
+      width: 90px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 6px;
+      background: #eee;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.07);
+    }
+    a.headline-link {
+      color: #003366;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    a.headline-link:hover {
+      text-decoration: underline;
+    }
+    @media (max-width: 700px) {
+      table, thead, tbody, th, td, tr { display: block; }
+      thead { display: none; }
+      tr { margin-bottom: 25px; background: #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.07);}
+      td {
+        border-bottom: none;
+        padding: 10px 7px;
+      }
+      td:before {
+        content: attr(data-label);
+        font-weight: bold;
+        display: block;
+        margin-bottom: 4px;
+        color: #555;
+      }
+      img.news-thumb { width: 100%; height: auto; max-width: 100px; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Latest News Headlines</h1>
+  <table id="news-table">
+    <thead>
+      <tr>
+        <th>Image</th>
+        <th>Headline</th>
+        <th>Source</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td colspan="3">Loading...</td></tr>
+    </tbody>
+  </table>
+
+  <script>
+    // NYTimes RSS - HTTPS and includes <media:content> images
+    const rssUrl = 'https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml';
+    const proxyUrl = `https://corsproxy.io/?${rssUrl}`;
+    const fallbackImg = 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Logo_2013_Google.png/320px-Logo_2013_Google.png';
+
+    function extractImage(item) {
+      // Try by namespace first (media:content)
+      let mediaUrl = null;
+      if (item.getElementsByTagNameNS) {
+        const mediaContent = item.getElementsByTagNameNS('http://search.yahoo.com/mrss/', 'content');
+        if (mediaContent.length > 0) {
+          mediaUrl = mediaContent[0].getAttribute('url');
+        }
+      }
+      // Fallback: media:thumbnail or enclosure
+      mediaUrl = mediaUrl ||
+        item.querySelector('media\\:thumbnail')?.getAttribute('url') ||
+        item.querySelector('enclosure')?.getAttribute('url');
+      // Fallback: image in <description>
+      if (!mediaUrl) {
+        let desc = item.querySelector('description')?.textContent || '';
+        if (desc) {
+          const div = document.createElement('div');
+          div.innerHTML = desc;
+          const img = div.querySelector('img');
+          if (img && img.src) mediaUrl = img.src;
+        }
+      }
+      return mediaUrl || fallbackImg;
+    }
+
+    function extractSource(item) {
+      let source = item.querySelector('source')?.textContent;
+      if (source) return source;
+      let link = item.querySelector('link')?.textContent || '';
+      if (link.includes('nytimes.com')) return 'NYTimes';
+      if (link.includes('bbc')) return 'BBC News';
+      return 'News';
+    }
+
+    async function loadNewsTable() {
+      const tbody = document.querySelector('#news-table tbody');
+      try {
+        const res = await fetch(proxyUrl);
+        if (!res.ok) throw new Error(res.status);
+        const text = await res.text();
+        const xml = new window.DOMParser().parseFromString(text, 'text/xml');
+        const items = Array.from(xml.querySelectorAll('item')).slice(0, 10);
+        if (!items.length) {
+          tbody.innerHTML = `<tr><td colspan="3">No headlines found.</td></tr>`;
+          return;
+        }
+        tbody.innerHTML = items.map(item => {
+          const title = item.querySelector('title')?.textContent || 'No title';
+          const link = item.querySelector('link')?.textContent || '#';
+          const image = extractImage(item);
+          const source = extractSource(item);
+          return `
+            <tr>
+              <td data-label="Image">
+                <a href="${link}" target="_blank" rel="noopener">
+                  <img src="${image}" class="news-thumb" alt="News Image" loading="lazy"
+                    onerror="this.onerror=null;this.src='${fallbackImg}'">
+                </a>
+              </td>
+              <td data-label="Headline">
+                <a href="${link}" class="headline-link" target="_blank" rel="noopener">
+                  ${title}
+                </a>
+              </td>
+              <td data-label="Source">${source}</td>
+            </tr>
+          `;
+        }).join('');
+      } catch (e) {
+        console.error('Failed to load news', e);
+        tbody.innerHTML = `<tr><td colspan="3">Error loading headlines.</td></tr>`;
+      }
+    }
+
+    loadNewsTable();
+    setInterval(loadNewsTable, 300000); // Refresh every 5 minutes
+  </script>
+</body>
+</html>

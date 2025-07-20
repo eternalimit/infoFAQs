@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>InfoFAQs Dashboard</title>
+  <style>
+    /* ... your CSS remains unchanged ... */
+    body, html { margin: 0; padding: 0; height: 100%; font-family: Arial, sans-serif; background-color: #ffffff; color: #333; display: flex; flex-direction: column; min-height: 100vh;}
+    header, footer { background-color: #003366; color: white; padding: 0.5em 1em; text-align: center; flex-shrink: 0;}
+    header nav a, footer a { color: white; margin: 0 0.5em; text-decoration: none; font-size: 0.9em;}
+    header nav a:hover, footer a:hover { text-decoration: underline;}
+    main { flex-grow: 1; padding: 40px 20px; max-width: 900px; margin: 0 auto; box-sizing: border-box; text-align: center;}
+    .logo { width: 120px; margin: 20px auto; display: block;}
+    .menu a { display: block; margin: 10px auto; padding: 10px 20px; background-color: #007BFF; color: white; text-decoration: none; border-radius: 6px; max-width: 300px; transition: background-color 0.3s ease; text-align: center;}
+    .menu a:hover { background-color: #0056b3;}
+    .welcome { margin-top: 20px;}
+    section { margin: 40px auto; max-width: 800px; text-align: center;}
+    section h2 { color: #003366;}
+    section ul, section ol { display: inline-block; text-align: left; margin: 0 auto 1.5em auto; padding-left: 1.2em;}
+    blockquote { max-width: 600px; margin: auto; text-align: center;}
+    a.button { display: inline-block; padding: 0.75em 1.5em; background: #007BFF; color: #fff; border-radius: 5px; text-decoration: none; margin-top: 15px;}
+    a.button:hover { background: #0056b3;}
+    #news-feed { max-height: 400px; background: #ffffff !important; color: #333 !important; padding: 10px 20px; font-weight: bold; border-radius: 6px; margin: 20px auto 0; max-width: 900px; box-sizing: border-box; text-align: left; display: flex; flex-direction: column; overflow-y: auto; gap: 15px; scrollbar-width: thin; scrollbar-color: #007BFF #ffffff;}
+    #news-feed::-webkit-scrollbar { width: 8px;}
+    #news-feed::-webkit-scrollbar-track { background: #ffffff; border-radius: 6px;}
+    #news-feed::-webkit-scrollbar-thumb { background-color: #007BFF; border-radius: 6px; border: 2px solid #ffffff;}
+    .news-card { background: #ffffff; border-radius: 6px; width: 100%; display: flex; flex-direction: row; flex-wrap: wrap; align-items: center; color: #003366; box-shadow: 0 2px 8px rgba(0,0,0,0.15); min-height: 110px; transition: box-shadow 0.3s ease; overflow: hidden;}
+    .news-card img { width: 120px; max-width: 30%; min-width: 60px; height: auto; object-fit: contain; border-top-left-radius: 6px; border-bottom-left-radius: 6px; flex-shrink: 0; background: #ffffff; padding: 5px;}
+    .news-card a { flex: 1 1 200px; min-width: 120px; padding: 10px; text-decoration: none; color: #003366; word-break: break-word; overflow-wrap: anywhere; display: block; font-weight: bold;}
+    .news-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.3);}
+    .news-card a:hover { text-decoration: underline;}
+    @media (max-width: 400px) {
+      .news-card img { min-width: 50px; max-width: 80px;}
+      .news-card a { min-width: 100px;}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav aria-label="Main navigation">
+      <a href="https://infofaqs.com" target="_blank" rel="noopener noreferrer">Home</a>
+      <a href="https://chat.openai.com/g/g-68589d1f9e6c8191bf9268118b6c53f1-claritytm" target="_blank" rel="noopener noreferrer">Sign In</a>
+      <a href="/support">Support</a>
+      <a href="https://chat.openai.com/g/g-68589d1f9e6c8191bf9268118b6c53f1-claritytm" target="_blank" rel="noopener noreferrer">Get Started</a>
+      <a href="/dev">Developer</a>
+    </nav>
+  </header>
+  <main>
+    <img src="images/infoFAQs_logo_full.png" alt="InfoFAQs Logo" class="logo" />
+    <h1>Welcome to InfoFAQs</h1>
+    <p class="welcome">Your AI-powered writing and FAQ platform</p>
+    <div class="menu">
+      <a href="ask.html">Ask a Question</a>
+      <a href="writing-assistant.html">Writing Assistant</a>
+      <a href="knowledge-base.html">Knowledge Base</a>
+      <a href="start-session.html">Start Session</a>
+      <a href="education/index.html">Training</a>
+      <a href="download/index.html">Download</a>
+    </div>
+    <section>
+      <h2>Features</h2>
+      <ul>
+        <li>AI-powered question answering</li>
+        <li>Writing assistant for documents and emails</li>
+        <li>Knowledge base with instant search</li>
+        <li>Live FAQ sessions</li>
+      </ul>
+    </section>
+    <section>
+      <h2>How It Works</h2>
+      <ol>
+        <li>Ask your question</li>
+        <li>Review intelligent responses</li>
+        <li>Improve your knowledge or writing instantly</li>
+      </ol>
+    </section>
+    <section>
+      <h2>Testimonials</h2>
+      <blockquote>"InfoFAQs saved me hours every week." — Professional Writer</blockquote>
+      <blockquote>"My customers love the instant answers!" — Business Owner</blockquote>
+    </section>
+    <section>
+      <h2>FAQ</h2>
+      <ul>
+        <li>What is InfoFAQs? - An AI-powered FAQ platform for clarity.</li>
+        <li>How secure is my data? - Your data is encrypted and secure.</li>
+        <li>Can I integrate with my site? - Yes, integration options available.</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Developer Portal</h2>
+      <p>Visit our <a href="/dev">Developer Portal</a> to get API keys, documentation, and community support.</p>
+    </section>
+    <div id="news-feed">Loading headlines...</div>
+  </main>
+  <footer>
+    <a href="/about">About</a> |
+    <a href="/privacy">Privacy</a> |
+    <a href="/contact">Contact</a>
+    <p style="margin-top:10px;">&copy; 2025 InfoFAQs</p>
+  </footer>
+  <script>
+    const newsFeed = document.getElementById('news-feed');
+    // Use direct RSS URL (not encoded)
+    // Try NYTimes for image testing: 'https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml'
+    // Try Google News for prod: 'https://news.google.com/rss?hl=en-US&gl=US&ceid=US:en'
+    const rssUrl = 'https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml';
+    const proxyUrl = `https://corsproxy.io/?${rssUrl}`;
+    const placeholderImg = 'images/infoFAQs_logo_full.png';
+
+    function extractImageFromItem(item) {
+      // Try <media:content> via namespace (NYTimes, BBC, etc.)
+      let mediaUrl = null;
+      if (item.getElementsByTagNameNS) {
+        const mediaContent = item.getElementsByTagNameNS('http://search.yahoo.com/mrss/', 'content');
+        if (mediaContent.length > 0) {
+          mediaUrl = mediaContent[0].getAttribute('url');
+        }
+      }
+      // Fallback: media:thumbnail, enclosure
+      mediaUrl = mediaUrl ||
+        item.querySelector('media\\:thumbnail')?.getAttribute('url') ||
+        item.querySelector('enclosure')?.getAttribute('url');
+      // Fallback: image in <description>
+      if (!mediaUrl) {
+        const desc = item.querySelector("description")?.textContent || '';
+        if (desc) {
+          const div = document.createElement('div');
+          div.innerHTML = desc;
+          const img = div.querySelector('img');
+          if (img && img.src) mediaUrl = img.src;
+        }
+      }
+      return mediaUrl || placeholderImg;
+    }
+
+    async function fetchGoogleNews() {
+      try {
+        const res = await fetch(proxyUrl);
+        if (!res.ok) throw new Error(res.status);
+        const text = await res.text();
+        const parser = new DOMParser();
+        const xml = parser.parseFromString(text, 'text/xml');
+        const items = xml.querySelectorAll('item');
+        if (items.length === 0) {
+          newsFeed.textContent = 'No headlines found.';
+          return;
+        }
+        newsFeed.innerHTML = Array.from(items).slice(0,10).map(item => {
+          const title = item.querySelector('title')?.textContent || 'No title';
+          const link = item.querySelector('link')?.textContent || '#';
+          const thumbnail = extractImageFromItem(item);
+          return `
+            <div class="news-card">
+              <img src="${thumbnail}" alt="Thumbnail" loading="lazy" onerror="this.onerror=null;this.src='${placeholderImg}';" />
+              <a href="${link}" target="_blank" rel="noopener noreferrer">${title}</a>
+            </div>
+          `;
+        }).join('');
+      } catch (e) {
+        console.error('RSS fetch error', e);
+        newsFeed.textContent = 'Error loading headlines.';
+      }
+    }
+    fetchGoogleNews();
+    setInterval(fetchGoogleNews, 300000);
+  </script>
+</body>
+</html>
