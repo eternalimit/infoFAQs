@@ -40,10 +40,10 @@
   <header>
     <nav aria-label="Main navigation">
       <a href="https://infofaqs.com" target="_blank" rel="noopener noreferrer">Home</a>
-      <a href="https://chat.openai.com/g/g-68589d1f9e6c8191bf9268118b6c53f1-claritytm" target="_blank" rel="noopener noreferrer">Sign In</a>
-      <a href="/support">Support</a>
-      <a href="https://chat.openai.com/g/g-68589d1f9e6c8191bf9268118b6c53f1-claritytm" target="_blank" rel="noopener noreferrer">Get Started</a>
-      <a href="/dev">Developer</a>
+      <a href="https://chatgpt.com/g/g-68589d1f9e6c8191bf9268118b6c53f1-claritytm" target="_blank" rel="noopener noreferrer">Open ChatGPT</a>
+      <a href="/support/">Support</a>
+      <a href="https://chatgpt.com/g/g-68589d1f9e6c8191bf9268118b6c53f1-claritytm" target="_blank" rel="noopener noreferrer">Get Started</a>
+      <a href="/dev/">Developer</a>
     </nav>
   </header>
   <main>
@@ -84,20 +84,20 @@
       <h2>FAQ</h2>
       <ul>
         <li>What is InfoFAQs? - An AI-powered FAQ platform for clarity.</li>
-        <li>How secure is my data? - Your data is encrypted and secure.</li>
+        <li>How is my data handled? - See our <a href="/privacy/">Privacy information</a> before using linked services.</li>
         <li>Can I integrate with my site? - Yes, integration options available.</li>
       </ul>
     </section>
     <section>
       <h2>Developer Portal</h2>
-      <p>Visit our <a href="/dev">Developer Portal</a> to get API keys, documentation, and community support.</p>
+      <p>Visit our <a href="/dev/">Developer Portal</a> for source code and the current integration status.</p>
     </section>
-    <div id="news-feed">Loading headlines...</div>
+    <div id="news-feed" role="status" aria-live="polite">Loading headlines...</div><noscript><p><a href="https://www.nytimes.com/">Read headlines at The New York Times</a>.</p></noscript>
   </main>
   <footer>
-    <a href="/about">About</a> |
-    <a href="/privacy">Privacy</a> |
-    <a href="/contact">Contact</a>
+    <a href="/about/">About</a> |
+    <a href="/privacy/">Privacy</a> |
+    <a href="/contact/">Contact</a>
     <p style="margin-top:10px;">&copy; 2025 InfoFAQs</p>
   </footer>
   <script>
@@ -135,32 +135,54 @@
       return mediaUrl || placeholderImg;
     }
 
-    async function fetchGoogleNews() {
+    function safeWebUrl(value) {
       try {
-        const res = await fetch(proxyUrl);
+        const url = new URL(value);
+        return ['https:', 'http:'].includes(url.protocol) ? url.href : null;
+      } catch { return null; }
+    }
+
+    async function fetchGoogleNews() {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 12000);
+      try {
+        const res = await fetch(proxyUrl, { signal: controller.signal });
         if (!res.ok) throw new Error(res.status);
         const text = await res.text();
-        const parser = new DOMParser();
-        const xml = parser.parseFromString(text, 'text/xml');
-        const items = xml.querySelectorAll('item');
-        if (items.length === 0) {
-          newsFeed.textContent = 'No headlines found.';
-          return;
+        const xml = new DOMParser().parseFromString(text, 'text/xml');
+        if (xml.querySelector('parsererror')) throw new Error('Invalid RSS');
+        const cards = [];
+        for (const item of Array.from(xml.querySelectorAll('item')).slice(0, 10)) {
+          const link = safeWebUrl(item.querySelector('link')?.textContent || '');
+          if (!link) continue;
+          const card = document.createElement('div');
+          card.className = 'news-card';
+          const img = document.createElement('img');
+          img.src = safeWebUrl(extractImageFromItem(item)) || placeholderImg;
+          img.alt = '';
+          img.loading = 'lazy';
+          img.onerror = () => { img.onerror = null; img.src = placeholderImg; };
+          const a = document.createElement('a');
+          a.href = link;
+          a.target = '_blank';
+          a.rel = 'noopener noreferrer';
+          a.textContent = item.querySelector('title')?.textContent || 'Read article';
+          card.append(img, a);
+          cards.push(card);
         }
-        newsFeed.innerHTML = Array.from(items).slice(0,10).map(item => {
-          const title = item.querySelector('title')?.textContent || 'No title';
-          const link = item.querySelector('link')?.textContent || '#';
-          const thumbnail = extractImageFromItem(item);
-          return `
-            <div class="news-card">
-              <img src="${thumbnail}" alt="Thumbnail" loading="lazy" onerror="this.onerror=null;this.src='${placeholderImg}';" />
-              <a href="${link}" target="_blank" rel="noopener noreferrer">${title}</a>
-            </div>
-          `;
-        }).join('');
+        if (!cards.length) throw new Error('No headlines');
+        newsFeed.replaceChildren(...cards);
       } catch (e) {
         console.error('RSS fetch error', e);
-        newsFeed.textContent = 'Error loading headlines.';
+        const message = document.createElement('p');
+        message.textContent = 'Headlines are temporarily unavailable. ';
+        const link = document.createElement('a');
+        link.href = 'https://www.nytimes.com/';
+        link.textContent = 'Read news at The New York Times';
+        message.append(link);
+        newsFeed.replaceChildren(message);
+      } finally {
+        clearTimeout(timeout);
       }
     }
     fetchGoogleNews();
