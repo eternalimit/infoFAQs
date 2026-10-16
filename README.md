@@ -70,7 +70,7 @@ Add user authentication
 Pull requests welcome! Please see CONTRIBUTING.md for guidelines.
 
 📄 License
-InfoFAQs is licensed under the MIT License. See LICENSE for details.
+**License status:** The repository does not currently contain a root `LICENSE` file. Do not assume all current material is MIT-licensed based on this README. Any historically distributed MIT-licensed versions retain their valid prior grants; other files may have different terms and third-party rights. The current licensing scope requires file-by-file review before reuse. Newly added original Security Check material is attributed to Richard Stein, All Rights Reserved, subject to applicable law and any existing rights.
 
 📬 Contact
 hello@infofaqs.com
