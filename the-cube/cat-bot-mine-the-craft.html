@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="index,follow"><title>CAT BOT — Mine the Craft | InfoFAQs</title>
+<meta name="description" content="Original CAT BOT block-mining puzzle and local evidence receipt.">
+<link rel="canonical" href="https://infofaqs.com/the-cube/cat-bot-mine-the-craft.html">
+<style>
+:root{font-family:system-ui,sans-serif;color-scheme:dark;background:#101c2b;color:#f5f7fc}
+*{box-sizing:border-box}body{margin:0}main{max-width:850px;margin:auto;padding:25px 16px 55px}
+a{color:#a6d8ff}h1{font-size:clamp(2rem,5vw,3.2rem);margin:.2em 0}.sub{color:#c4d1df}
+.panel{background:#1c3044;border:1px solid #46637b;border-radius:16px;padding:18px;margin:18px 0}
+.stats{display:flex;gap:18px;flex-wrap:wrap;font-weight:700}.stats span{color:#bfe8ff}
+#mine{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin:18px 0}
+.tile{border:2px solid #55718c;border-radius:9px;aspect-ratio:1;background:#40546a;color:white;font-size:clamp(1.3rem,4vw,2.2rem);cursor:pointer}
+.tile:focus-visible,button:focus-visible{outline:3px solid #f8ce63;outline-offset:2px}
+.tile:disabled{opacity:.4;cursor:default;background:#24374b}
+.tile[data-kind="stone"]{background:#637489}.tile[data-kind="crystal"]{background:#277b9d}.tile[data-kind="gold"]{background:#9c7130}.tile[data-kind="gem"]{background:#6750a2}
+button.action{background:#ffcd65;color:#182332;border:0;border-radius:9px;padding:11px 16px;font-weight:800;cursor:pointer;margin:5px 8px 5px 0}
+.cat{font:700 20px/1.2 monospace;white-space:pre;color:#ffe4a0;margin:8px 0}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#0d1927;padding:12px;border-radius:9px}
+.small{font-size:.85rem;color:#b4c2d1}#status{min-height:2em} 
+</style></head><body><main>
+<p><a href="/">← InfoFAQs</a> · THE CUBE / ORIGINAL INTERACTIVE</p>
+<h1>CAT BOT <span aria-hidden="true">▣</span></h1><p class="sub">MINE THE CRAFT — Edition 0 · Original block-mining puzzle</p>
+<section class="panel" aria-label="CAT BOT introduction">
+<div class="cat" aria-hidden="true"> /\_/\\
+( o.o )
+ > ▣ <</div>
+<p><strong>CAT BOT:</strong> “Mine carefully. Log what you find. Verify your score.”</p>
+<p>Choose a block to mine. Stone scores 1, crystals 3, gold 5, and rare gems 10. There are 36 blocks per round.</p>
+</section>
+<section class="panel" aria-label="Interactive mine">
+<div class="stats"><div>Blocks: <span id="blocks">0/36</span></div><div>Score: <span id="score">0</span></div><div>Last find: <span id="last">—</span></div></div>
+<div id="mine" role="group" aria-label="Mineable block grid"></div>
+<p id="status" role="status" aria-live="polite">Mine a block to begin.</p>
+<button class="action" id="reset" type="button">New round</button>
+<button class="action" id="receipt" type="button">Generate receipt</button>
+<button class="action" id="copy" type="button">Copy receipt</button>
+<h2>Local session receipt</h2><pre id="output">No receipt generated yet.</pre>
+</section>
+<p class="small">This is a self-contained browser game, not cryptocurrency mining. No wallet, login, network requests, external scripts, or personal information are required. The SHA-256 digest, when supported by the browser, verifies the exact locally generated receipt text; it does not independently certify gameplay or ownership.</p>
+<p>© 2026 Richard Stein. All Rights Reserved.</p>
+</main><script>
+"use strict";
+const kinds=[{name:"Stone",points:1,symbol:"▦",kind:"stone"},{name:"Crystal",points:3,symbol:"◆",kind:"crystal"},{name:"Gold",points:5,symbol:"⬟",kind:"gold"},{name:"Gem",points:10,symbol:"✦",kind:"gem"}];
+const mine=document.getElementById("mine"),scoreEl=document.getElementById("score"),blocksEl=document.getElementById("blocks"),lastEl=document.getElementById("last"),statusEl=document.getElementById("status"),output=document.getElementById("output");
+let board=[],score=0,mined=0,events=[],receiptText="";
+function randomInt(max){if(globalThis.crypto&&crypto.getRandomValues){const a=new Uint32Array(1);crypto.getRandomValues(a);return a[0]%max;}return Math.floor(Math.random()*max);}
+function newRound(){board=Array.from({length:36},()=>{const r=randomInt(100);return r<52?0:r<79?1:r<94?2:3});score=0;mined=0;events=[];receiptText="";mine.replaceChildren();board.forEach((kind,i)=>{const b=document.createElement("button");b.type="button";b.className="tile";b.dataset.kind=kinds[kind].kind;b.setAttribute("aria-label","Mine block "+(i+1));b.textContent="▧";b.addEventListener("click",()=>dig(i,b));mine.appendChild(b)});refresh();statusEl.textContent="New round ready. Mine a block.";output.textContent="No receipt generated yet."}
+function refresh(){scoreEl.textContent=String(score);blocksEl.textContent=mined+"/36";lastEl.textContent=events.length?events[events.length-1].resource:"—";}
+function dig(i,b){if(b.disabled)return;const k=kinds[board[i]];b.disabled=true;b.textContent=k.symbol;b.setAttribute("aria-label","Block "+(i+1)+": "+k.name+", mined");score+=k.points;mined++;events.push({block:i+1,resource:k.name,points:k.points});receiptText="";output.textContent="Session changed. Generate a new receipt.";refresh();statusEl.textContent="Found "+k.name+" (+"+k.points+")."+(mined===36?" Round complete!":"");}
+async function generateReceipt(){const payload={game:"CAT BOT — Mine the Craft",edition:"0",blocksMined:mined,score,events};const raw=JSON.stringify(payload);let digest="UNAVAILABLE";if(globalThis.crypto&&crypto.subtle){try{const bytes=new TextEncoder().encode(raw);const hash=await crypto.subtle.digest("SHA-256",bytes);digest=Array.from(new Uint8Array(hash),b=>b.toString(16).padStart(2,"0")).join("");}catch(e){digest="UNAVAILABLE";}}
+receiptText="SHA-256 (JSON payload): "+digest+"\n"+raw;output.textContent=receiptText;statusEl.textContent="Receipt generated for "+mined+" mined blocks.";}
+document.getElementById("reset").addEventListener("click",newRound);
+document.getElementById("receipt").addEventListener("click",generateReceipt);
+document.getElementById("copy").addEventListener("click",async()=>{if(!receiptText){statusEl.textContent="Generate a receipt first.";return;}try{await navigator.clipboard.writeText(receiptText);statusEl.textContent="Receipt copied.";}catch(e){statusEl.textContent="Copy unavailable. Select the receipt text manually.";}});
+newRound();
+</script></body></html>
