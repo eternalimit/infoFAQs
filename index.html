@@ -102,6 +102,49 @@
 </div>
 </div>
 </section>
+
+<section class="section" id="approval">
+<h2>Your intent. Your authorization.</h2>
+<p>Review the exact action before you confirm. Nothing is approved by default.</p>
+<button class="btn" type="button" id="review-approval">Review &amp; approve</button>
+<dialog id="approval-dialog" aria-labelledby="approval-title" style="max-width:620px;width:90%;border:1px solid #777;border-radius:12px;padding:24px">
+<form id="approval-form">
+<h2 id="approval-title">Confirm intent &amp; authorization</h2>
+<p>This records your confirmation for the action below. It does not accept any terms, grant account permissions, or cause an assistant to execute it. If you want an assistant to act, provide the receipt in that conversation.</p>
+<label for="approval-action">Exact action you intend to authorize</label>
+<textarea id="approval-action" required maxlength="3000" rows="3" style="display:block;width:100%;margin:8px 0 16px" placeholder="Describe the specific action and expected result"></textarea>
+<label for="approval-destination">Internet destination / URL</label>
+<input id="approval-destination" type="url" required placeholder="https://infofaqs.com" style="display:block;width:100%;margin:8px 0 16px">
+<label for="approval-scope">Permitted scope and limits</label>
+<textarea id="approval-scope" required maxlength="3000" rows="3" style="display:block;width:100%;margin:8px 0 16px" placeholder="Specify read or write access, permitted data, and what may be changed"></textarea>
+<label style="display:block;margin:16px 0"><input id="approval-consent" type="checkbox" required> I confirm this is my intent and authorize only the action, destination, and scope written above.</label>
+<p class="count">Stored only in this browser. No identity verification, server acknowledgment, or automatic execution. A receipt hash checks bytes; it is not an identity signature.</p>
+<div class="actions"><button class="btn" type="submit">Confirm this authorization</button><button type="button" class="secondary" id="cancel-approval">Cancel</button></div>
+</form>
+</dialog>
+<p id="approval-status" role="status" aria-live="polite"></p>
+<div class="actions"><button type="button" id="download-approval" hidden>Download receipt</button><button type="button" id="withdraw-approval" hidden>Withdraw local approval</button></div>
+<pre id="approval-receipt" hidden style="white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px"></pre>
+<p class="count">Withdrawing updates this browser's record only. It cannot recall receipts already shared or stop actions elsewhere.</p>
+</section>
+<script>
+(()=>{
+'use strict';
+const get=id=>document.getElementById(id),key='infofaqs.authorization.v1';let receipt=null,busy=false;
+const valid=r=>r&&r.version===1&&r.origin===location.origin&&['CONFIRMED','WITHDRAWN'].includes(r.status)&&typeof r.action==='string'&&typeof r.destination==='string'&&typeof r.scope==='string'&&typeof r.confirmed_at==='string';
+function render(){get('download-approval').hidden=!receipt;get('withdraw-approval').hidden=!receipt||receipt.status!=='CONFIRMED';get('approval-receipt').hidden=!receipt;if(receipt){get('approval-receipt').textContent=JSON.stringify(receipt,null,2);get('approval-status').textContent=receipt.status==='CONFIRMED'?'Confirmation recorded locally. No action has been executed.':'Local approval withdrawn. Previously shared copies are unchanged.'}}
+function save(){try{localStorage.setItem(key,JSON.stringify(receipt));return true}catch{return false}}
+async function seal(r){const payload={...r};delete payload.sha256;const bytes=new TextEncoder().encode(JSON.stringify(payload));const digest=await crypto.subtle.digest('SHA-256',bytes);return {...payload,sha256:Array.from(new Uint8Array(digest),b=>b.toString(16).padStart(2,'0')).join('')}}
+try{const r=JSON.parse(localStorage.getItem(key)||'null');if(valid(r))receipt=r}catch{}
+render();
+get('review-approval').onclick=()=>{get('approval-form').reset();get('approval-dialog').showModal()};
+get('cancel-approval').onclick=()=>get('approval-dialog').close();
+get('approval-form').onsubmit=async e=>{e.preventDefault();if(busy)return;const action=get('approval-action').value.trim(),destination=get('approval-destination').value.trim(),scope=get('approval-scope').value.trim();let u;try{u=new URL(destination)}catch{return}if(!action||!scope||!['http:','https:'].includes(u.protocol)){get('approval-status').textContent='Enter an action, scope, and an http or https destination.';return}if(!get('approval-consent').checked)return;busy=true;const submit=e.submitter;if(submit)submit.disabled=true;try{const next=await seal({version:1,origin:location.origin,status:'CONFIRMED',action,destination:u.href,scope,confirmed_at:new Date().toISOString(),accepts_terms:false,executes_action:false,identity_verified:false,hash_encoding:'SHA-256 of UTF-8 JSON.stringify(receipt without sha256), preserving field order'});receipt=next;const stored=save();get('approval-dialog').close();render();if(!stored)get('approval-status').textContent='Confirmation is available for download but browser storage failed. Download your receipt before leaving.'}catch{get('approval-status').textContent='Could not generate a receipt. No new confirmation recorded.'}finally{busy=false;if(submit)submit.disabled=false}};
+get('download-approval').onclick=()=>{if(!receipt)return;const url=URL.createObjectURL(new Blob([JSON.stringify(receipt,null,2)],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download='infofaqs-authorization-receipt.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
+get('withdraw-approval').onclick=async()=>{if(!receipt||busy)return;busy=true;try{receipt=await seal({...receipt,status:'WITHDRAWN',withdrawn_at:new Date().toISOString()});const stored=save();render();if(!stored)get('approval-status').textContent='Withdrawal is in memory only: storage failed. Download the updated receipt.'}catch{get('approval-status').textContent='Withdrawal could not be recorded. Try again.'}finally{busy=false}};
+})();
+</script>
+
 </main>
 <footer>
 <div class="wrap">
