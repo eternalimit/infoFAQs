@@ -1,20 +1,78 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Contact - InfoFAQs</title>
-<style>
-body{margin:0;font-family:Arial,sans-serif;background:#fff;color:#333;display:flex;flex-direction:column;min-height:100vh}
-header,footer{background:#003366;color:white;text-align:center;padding:1em}
-header a,footer a{color:white;margin:0 .5em}
-main{flex:1;width:100%;max-width:800px;margin:auto;padding:32px 20px;box-sizing:border-box;line-height:1.6}
-h1{color:#003366;text-align:center}.logo{width:120px;display:block;margin:20px auto}
-a{color:#0056b3;overflow-wrap:anywhere}a:focus-visible{outline:3px solid #007bff;outline-offset:3px}
-</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Inquire | Bubba Marketplace</title>
+<meta name="description" content="Prepare a SAME cover inquiry in your own email app. No payment or order submission.">
+<link rel="stylesheet" href="/marketplace/style.css">
+<script src="/marketplace/site.js" defer>
+</script>
 </head>
 <body>
-<header><nav aria-label="Main navigation"><a href="/index.html">Home</a><a href="/support/">Support</a><a href="/dev/">Developer</a></nav></header>
-<main><img class="logo" src="/images/infoFAQs_logo_full.png" alt="InfoFAQs Logo"><h1>Contact</h1><p>Email InfoFAQs at <a href="mailto:hello@infofaqs.com">hello@infofaqs.com</a>.</p><p>For a website issue, include the page address and a short description. Do not send passwords or API keys.</p><p><a href="/support/">Read support information</a>.</p></main>
-<footer><a href="/about/">About</a> | <a href="/privacy/">Privacy</a> | <a href="/contact/">Contact</a><p>&copy; 2026 InfoFAQs</p></footer>
+<a class="skip" href="#main">Skip to content</a>
+<header>
+<div class="wrap top">
+<a class="brand" href="/">BUBBA MARKETPLACE<small>AT INFOFAQS · BY RICHARD STEIN</small>
+</a>
+<nav aria-label="Main navigation">
+<a href="/covers/">SAME Covers</a>
+<a href="/saved/">Saved Covers</a>
+<a href="/resources/">Tools & Games</a>
+<a href="/about/">About</a>
+<a href="/contact/" aria-current="page">Inquire</a>
+</nav>
+</div>
+</header>
+<main id="main" class="wrap">
+<section class="intro">
+<p class="eyebrow">Bubba on the line</p>
+<h1>Let’s talk SAME.</h1>
+<p class="lead">Ask about a cover, a copy, or the marketplace.</p>
+</section>
+<div class="narrow">
+<form id="inquiry">
+<label for="topic">What is this about?</label>
+<select id="topic" name="topic">
+<option>SAME SAME BUT DIFFERENT cover</option>
+<option>Other SAME cover inquiry</option>
+<option>Website support</option>
+<option>General marketplace inquiry</option>
+</select>
+<label for="message">Your message</label>
+<textarea id="message" name="message" required maxlength="3000" placeholder="I’m interested in this cover. Which formats are available?">
+</textarea>
+<p class="form-note">This form prepares an email in your email app to hello@infofaqs.com. Nothing is submitted to this website. Review the email and press Send in your email app.</p>
+<div class="actions">
+<button type="submit">Prepare email →</button>
+<button class="secondary" type="button" id="copy-inquiry">Copy inquiry</button>
+</div>
+<p id="inquiry-status" role="status">
+</p>
+<div id="email-fallback" hidden>
+<label for="prepared-email">Prepared email — copy if your email app does not open</label>
+<textarea id="prepared-email" readonly>
+</textarea>
+</div>
+</form>
+<noscript>
+<p>Email <a href="mailto:hello@infofaqs.com">hello@infofaqs.com</a> with your inquiry.</p>
+</noscript>
+<p>Prefer your own email app? <a href="mailto:hello@infofaqs.com">Email hello@infofaqs.com</a>.</p>
+<p class="form-note">Please keep passwords, payment details, and private project material out of your message. No response time or product availability is promised.</p>
+</div>
+</main>
+<footer>
+<div class="wrap">
+<div>
+<a href="/about/">About</a>
+<a href="/faq/">FAQ</a>
+<a href="/support/">Support</a>
+<a href="/privacy/">Privacy</a>
+<a href="/dev/">Developer</a>
+</div>
+<span>© 2026 Richard Stein. All Rights Reserved.</span>
+</div>
+</footer>
 </body>
 </html>

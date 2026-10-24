@@ -1,0 +1,30 @@
+{
+  "change": "SAME browse and inquiry marketplace",
+  "checks": {
+    "root_relative_links": "PASS, 11 pages",
+    "javascript_syntax": "PASS",
+    "browser_search_negative_control": "PASS: unmatched query shows zero results",
+    "browser_save_persistence_and_removal": "PASS",
+    "browser_inquiry_prefill_and_copy": "PASS"
+  },
+  "limits": [
+    "One labeled typographic website preview; no original cover files published",
+    "No checkout, payments, or confirmed pricing",
+    "Mailbox delivery and external email apps not tested"
+  ],
+  "sha256": {
+    "index.html": "fe3b5411d1991b9713a2327346f15793fe7eacfd285a29c8510eaf40e94211ab",
+    "404.html": "9b04db8b99abe92eb65939647b05588a586d1707649d6b26a084463299a8142e",
+    "covers/index.html": "cc2aa1bea45bdb954e06163d53dcf776eaa780f2328c2f21ad5a33fd5c5ff352",
+    "covers/same-same-but-different/index.html": "1efceca00ac28ed2dcc94c857d83a8c632be82f6c81220670f84e931ff77e13e",
+    "saved/index.html": "70a933c88e33270ef528c1f61de4f12abf620aec43af827c6dd77e97c0be957d",
+    "contact/index.html": "7cda5d8fc13abd2192783b96a59abf967906c17e2c7942c6c0acb7b45b4b6e1e",
+    "resources/index.html": "070c6abddb5aef2dd1242a99f22fe7b861e6a0ba09188b9922271fb0c95bff4c",
+    "about/index.html": "b74d4ee93897fdbda6a80bb69dca0e8210ecaccc0963074cf9094ad5ab2b6ce5",
+    "faq/index.html": "1534eb1ec9dcfa8e64659512dc649b6bf9d851d1244fdba915641942eaf957ed",
+    "support/index.html": "d26eed105b4fa6559676d67f69fd0681851d21704cde1c331fa4a939886914f3",
+    "privacy/index.html": "b6b15fed0bfb41d32a97b2e3ce92a7072cd72ec00fae741166c2db96ee9a80de",
+    "marketplace/style.css": "f3e18709b6da74442528da0a0634c2346260b67240a4ba33d3c8b363bcb8068d",
+    "marketplace/site.js": "c97cd3114f0f072203ecffdde36a2fdc8361eb42eb01152d6268ceecabf4ee91"
+  }
+}
