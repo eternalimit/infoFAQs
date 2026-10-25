@@ -19,11 +19,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
-      - name: Prepare tracked website files
+      - name: Prepare public allowlist only
         run: |
-          mkdir -p _site
-          git archive HEAD | tar -x -C _site
-          rm -rf _site/.github
+          set -eu
+          rm -rf _site
+          mkdir _site
+          for file in index.html 404.html robots.txt sitemap.xml CNAME; do
+            test -f "$file"
+            test ! -L "$file"
+            cp "$file" "_site/$file"
+          done
+          touch _site/.nojekyll
+          test "$(find _site -type f | wc -l)" -eq 6
+          test ! -e _site/marketplace
+          test ! -e _site/ARCHIVE
+          test ! -e _site/the-cube
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
