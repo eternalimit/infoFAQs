@@ -1,0 +1,32 @@
+{
+  "scope": "InfoFAQs consumer marketplace rebuild",
+  "checks": {
+    "javascript_syntax": "PASS",
+    "browser_search_lacrosse": "PASS after keyword correction",
+    "saved_cover_navigation": "PASS",
+    "cover_format_to_inquiry": "PASS",
+    "inquiry_copy": "PASS",
+    "payments": "not configured",
+    "mobile_browser": "not tested"
+  },
+  "files": {
+    "about/index.html": "68781d07a043575a4dcce049b7eca7b620b2b835efae262173ba1e7fb2ae464c",
+    "authorization/index.html": "3a726448ed38ef6d06d635ce9a91c40743bf88b111b7f70d82f1c5ad78cebd75",
+    "contact/index.html": "cbe1b9cbf75f0ba039da08ad5a439ee948c20adebb830278519ae014c0e5a42e",
+    "covers/index.html": "5cc7b9ec87b139516e6c4d9cef7909b55e30c80d0303d54d62fc0bf40699d4c6",
+    "covers/same-arcade/index.html": "600564ac176265033784947e6332a5759c291a2d9702526061986427ab79b830",
+    "covers/same-lacrosse/index.html": "d8d01dd6e251aca0281fdbf9fe98850b8010570c83e69d665d540aad4dc89a36",
+    "covers/same-same-but-different/index.html": "692a1f850be6e0f79b8fcaa5445072adf2031ee7a940182b317ed44b168c09e2",
+    "faq/index.html": "cd5adefd22834b709f72167f015fce314dea8e5fceab7fb69450b903050804f0",
+    "index.html": "ca86560c0674c04251c58cb64ec54db1da005110c4b5e02161e51170d1c727e5",
+    "marketplace/art/same-arcade.webp": "888a08eeda126a6a72311b2c08ffb0eb5a442c981fbc1e3f43a002c9111ff7fa",
+    "marketplace/art/same-lacrosse.webp": "be09d740c77d6509f7da211c9e605b0d6433a612af6eb39bfd5836e74ae6871c",
+    "marketplace/catalog.json": "2aa6472733ceda822dde146a6ea53e1675b5eef84683beb0ecfbad81eadacb5e",
+    "marketplace/site.js": "d38225ce213139430d5987b02ee65088295bb6a1aac711781e16200093f2e774",
+    "marketplace/style.css": "523bb37b3374b7807a321de54f0f8574380dc00ca133273cffeca2da4cddb9ac",
+    "privacy/index.html": "dd3dea110910b9126c9d3f6585a82d9076aad84586b7085faa1445159f5cafdd",
+    "resources/index.html": "a4c51b80adafb22712896425e4de15db4b6674df91ed73875ba488aca4220d4d",
+    "saved/index.html": "88910e3f5072121546af32139ef23f966164f67dbaaa5e533dc13b3f8c2e0d9c",
+    "support/index.html": "47f1dc70b69d91e26fb685f18c6c2d34770530aca5e9cd919aae8d3cecb5418b"
+  }
+}

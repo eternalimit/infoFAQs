@@ -1,0 +1,20 @@
+[
+  {
+    "id": "same-arcade",
+    "title": "RJ’s Retro Arcade Showdown",
+    "category": "Arcade",
+    "sub": "SAME · ROUND ONE",
+    "desc": "Electric blue, hot pink, and a cabinet full of arcade energy. A bold SAME cover built around RJ’s round-one showdown.",
+    "alt": "SAME cover showing a colorful retro arcade cabinet, two fighting game characters and a blue cube.",
+    "file": "same-arcade.webp"
+  },
+  {
+    "id": "same-lacrosse",
+    "title": "Cradle. Pass. Shoot.",
+    "category": "Sport",
+    "sub": "SAME · LACROSSE EDITION",
+    "desc": "A vintage sports-cover treatment with a blue-and-gold lacrosse player and three illustrated moments: cradle, pass, shoot.",
+    "alt": "SAME Lacrosse Edition cover with a lacrosse player on a field and cradle, pass, shoot illustrated panels.",
+    "file": "same-lacrosse.webp"
+  }
+]
