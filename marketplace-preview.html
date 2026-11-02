@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>InfoFAQs | Marketplace Prototype</title>
+<style>
+:root{font-family:system-ui,sans-serif;color:#172d42;background:#f4f7fa}body{margin:0}header,footer{background:#102e52;color:white;padding:1.25rem max(1rem,calc((100vw - 1050px)/2))}header a{color:white}main{max-width:1050px;margin:auto;padding:2rem 1rem}h1{font-size:clamp(2rem,5vw,3.5rem)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem}.card{background:white;border:1px solid #d5e0e9;border-radius:12px;padding:1.25rem}button{border:0;border-radius:7px;padding:.7rem 1rem;background:#154b80;color:white;cursor:pointer}button:focus-visible,a:focus-visible{outline:3px solid orange}nav{display:flex;gap:1rem;flex-wrap:wrap}small{color:#52687b}.notice{border-left:4px solid #a16c00;padding:1rem;background:#fff7e4}footer small{color:white}</style></head>
+<body><header><strong>InfoFAQs</strong><nav aria-label="Main navigation"><a href="#explore">Explore</a><a href="#cart">Cart</a><a href="#membership">Membership</a><a href="#owner">Owner access</a></nav></header>
+<main><h1>Find answers. Explore services. Stay in control.</h1><p>A public-safe, non-transactional development preview of the InfoFAQs marketplace experience.</p>
+<p class="notice"><strong>Prototype only.</strong> No real purchases, account creation, payments, private content or owner authentication are available here.</p>
+<section id="explore"><h2>Explore the marketplace</h2><div class="grid">
+<article class="card"><h3>Guides & FAQs</h3><p>Browse practical answers and educational resources.</p><button type="button" data-item="Guides & FAQs">Save to demo cart</button></article>
+<article class="card"><h3>Membership preview</h3><p>Learn how member services may work after secure implementation.</p><button type="button" data-item="Membership preview">Save to demo cart</button></article>
+<article class="card"><h3>Business resources</h3><p>Explore future business support categories.</p><button type="button" data-item="Business resources">Save to demo cart</button></article>
+</div></section>
+<section id="cart" class="card" aria-labelledby="cart-title"><h2 id="cart-title">Demo cart</h2><p>Local page-session preview only; nothing is submitted or purchased.</p><ul id="items"></ul><p id="count" role="status" aria-live="polite">0 saved items</p><button type="button" id="clear">Clear demo cart</button></section>
+<section id="membership" class="card"><h2>Membership</h2><p>Registration is disabled until identity, email verification, privacy and payment safeguards pass testing.</p><button type="button" disabled>Sign up — not yet available</button></section>
+<section id="owner" class="card"><h2>Owner access</h2><p>Owner-only administration must be implemented and enforced on the server. This public prototype has no owner login or private administration data.</p></section>
+<section class="card"><h2>WATT 100</h2><p>100-page inventory is pending provenance review. No private questions, creative scripts or unpublished source material are included.</p></section>
+</main><footer><small>© 2026 Richard Stein. All Rights Reserved. Development preview · 0 HOLD · No live commerce.</small></footer>
+<script>
+(()=>{'use strict';const items=[];const list=document.getElementById('items');const count=document.getElementById('count');function render(){list.replaceChildren();for(const item of items){const li=document.createElement('li');li.textContent=item;list.append(li)}count.textContent=items.length+' saved item'+(items.length===1?'':'s')}document.querySelectorAll('[data-item]').forEach(b=>b.addEventListener('click',()=>{items.push(b.dataset.item);render()}));document.getElementById('clear').addEventListener('click',()=>{items.length=0;render()});render()})();
+</script></body></html>
