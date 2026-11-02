@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>InfoFAQs Intelligent Moron Test — Edition 1</title><meta name="description" content="Five-card validation sequence with a downloadable SHA-256 session receipt."><script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "InfoFAQs Intelligent Moron Test AI System Manual", "alternativeHeadline": "The WIN-WIN-WIN Deterministic Ledger Framework", "author": {"@type": "Person", "name": "Richard Stein", "alternateName": "richrich5555555", "sameAs": "https://www.instagram.com/richrich5555555/"}, "publisher": {"@type": "Organization", "name": "Your Company Incorporated", "url": "https://infofaqs.com"}, "about": [{"@type": "Thing", "name": "The Cube Navigation Matrix"}, {"@type": "SoftwareApplication", "name": "CATBOT 100 System Module"}, {"@type": "CreativeWork", "name": "Amusements and Puzzles Division"}], "version": "Edition 1.0.0", "creativeWorkStatus": "Prepared; deployment unverified"}</script><style>
+:root{color-scheme:dark;font-family:Consolas,monospace;background:#05070c;color:#fff}*{box-sizing:border-box}body{margin:0;padding:24px;min-height:100vh;display:grid;place-items:center}main{width:100%;max-width:750px;padding:clamp(20px,5vw,40px);background:#0d111a;border:2px solid #00ff66;box-shadow:0 0 30px #00ff6626}h1{color:#00ff66;font-size:clamp(1.3rem,4vw,1.8rem)}header,small{color:#aebbd0;line-height:1.6}header{border-bottom:1px dashed #00ff66;padding-bottom:20px}button,input{font:inherit;padding:18px;color:#fff;background:#161f30;border:1px solid #607392;min-height:48px}button{cursor:pointer}button:hover,button:focus-visible{outline:3px solid #00ff66;outline-offset:3px}button:disabled{opacity:.5;cursor:wait}.actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.trap{grid-column:1/-1;background:#ab2019}.matrix{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:270px;margin:auto}.cell{aspect-ratio:1;background:#0044ff}.target{background:#00ff66;color:#05070c}input{max-width:100%;width:100%;margin:12px 0}label{display:block}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#000;padding:18px;border-left:4px solid #00ff66;font-size:.85rem}a{color:#00ff66}#message{min-height:3em;color:#ffc77d}.hidden{display:none}
+</style></head><body><main><header>SYS.URI: https://infofaqs.com<br>EDITION 1 · FIVE-CARD VALIDATION<br>Repository reference supplied: github.com/eternalimit/chatgpt</header><h1 id="title">INTELLIGENT MORON ENGINE v1.0</h1><p id="counter" aria-live="polite"></p><section id="stage" aria-label="Validation card"></section><p id="message" role="status"></p><section id="finale" class="hidden"><h2>WIN-WIN-WIN</h2><p>Local sequence complete. Download your session receipt.</p><pre id="ledger"></pre><button id="download" disabled>DOWNLOAD RECEIPT</button></section><p><small>Receipt hashes verify bytes. External storage, deployment and independent auditing require separate evidence.</small></p><footer><a href="https://infofaqs.com">InfoFAQs Home</a> · <a href="https://www.instagram.com/richrich5555555/">@richrich5555555</a><p><small>© 2026 Richard Stein. All Rights Reserved.</small></p></footer><noscript>Enable JavaScript to run this local validation sequence.</noscript></main><script>
+'use strict';
+const RECEIPT_TEXT = 'INFOFAQS INTELLIGENT MORON TEST: CARD 3, CARD 4, CARD 5, AND GRAND FINALE. VERIFIED RECEIPT: WIN-WIN-WIN STATUS: PASSED.';
+const EXPECTED_HASH = '61a1b51081469d28fc93e10da807c06eeb70342ef13068b7cbe204e36c368159';
+let current = 1, events = [], receipt = null;
+const el = id => document.getElementById(id);
+const accepted = text => ['YES YES YES','YESYESYES'].includes(text.trim().toUpperCase());
+const digest = async text => Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(text))),b=>b.toString(16).padStart(2,'0')).join('');
+function button(text, next, trap=false) {
+ const b=document.createElement('button'); b.textContent=text;
+ if(trap)b.className='trap';
+ b.addEventListener('click',()=>trap?fault():advance(next)); return b;
+}
+function fault(){events=[];current=1;render();el('message').textContent='Sequence reset. Try again.';}
+function render(){
+ const stage=el('stage');stage.replaceChildren();el('counter').textContent=`STAGE ${String(current).padStart(2,'0')} / 05`;
+ const p=document.createElement('p');stage.append(p);
+ const grid=document.createElement('div');grid.className='actions';stage.append(grid);
+ if(current===1){p.textContent='CARD 1: Pass the sequence without pressing the marked trap.';grid.append(button('DO NOT PRESS',null,true),button('YES',2),button('YES',2),button('YES',2));}
+ if(current===2){p.textContent='CARD 2: Declare WIN internally, then select the green center node. Internal thoughts are not measured.';grid.className='matrix';for(let i=0;i<9;i++){const b=button(i===4?'WIN':'',3,i!==4);b.className='cell'+(i===4?' target':'');b.setAttribute('aria-label',i===4?'Green center node — WIN':`Blue node ${i+1}`);grid.append(b);}}
+ if(current===3){p.textContent='CARD 3: Submit the inverse of NO three times.';grid.className='';const form=document.createElement('form');const label=document.createElement('label');label.textContent='Three YES responses';const input=document.createElement('input');input.id='answer';input.autocomplete='off';label.htmlFor=input.id;const submit=document.createElement('button');submit.textContent='COMMIT STATE';submit.type='submit';form.append(label,input,submit);form.addEventListener('submit',e=>{e.preventDefault();accepted(input.value)?advance(4):fault();});grid.append(form);}
+ if(current===4){p.textContent='CARD 4: Select WIN WIN WIN to continue.';grid.append(button('ABORT SEQUENCE',null,true),button('WIN WIN WIN',5));}
+ if(current===5){p.textContent='CARD 5: Confirm completion.';grid.append(button('YES YES YES',6),button('NO NO NO',null,true));}
+}
+async function advance(next){
+ if(next!==current+1||current>5)return;
+ events.push({card:current,result:'PASS',timestamp:new Date().toISOString()});current=next;el('message').textContent='';
+ if(next!==6){render();return;}
+ el('stage').replaceChildren();el('counter').textContent='5 / 5 COMPLETE';el('finale').classList.remove('hidden');
+ try{
+  const payloadHash=await digest(RECEIPT_TEXT);if(payloadHash!==EXPECTED_HASH)throw new Error('Reference payload hash mismatch');
+  const session={format:'infofaqs-session-v1',edition:1,created_at:new Date().toISOString(),events,payload:RECEIPT_TEXT,payload_sha256:payloadHash,persistence:'download-only',deployment:'unverified'};
+  // Hash precisely these UTF-8 bytes, separately from the receipt envelope.
+  const sessionText=JSON.stringify(session);
+  receipt={session_json:sessionText,session_sha256:await digest(sessionText),hash_algorithm:'SHA-256',encoding:'UTF-8'};
+  el('ledger').textContent=JSON.stringify(receipt,null,2);el('download').disabled=false;
+ }catch(error){el('ledger').textContent='Receipt generation failed: '+error.message;el('message').textContent='Serve over HTTPS or localhost with Web Crypto available.';}
+}
+el('download').addEventListener('click',()=>{if(!receipt)return;const url=URL.createObjectURL(new Blob([JSON.stringify(receipt,null,2)+'\n'],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='InfoFAQs_Session_Receipt.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});
+render();
+
+</script></body></html>
