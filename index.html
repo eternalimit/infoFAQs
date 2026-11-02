@@ -1,8 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>InfoFAQs.com | The Cube — Know More. Have Fun.</title>
-<meta name="robots" content="index,follow">
-<link rel="canonical" href="https://infofaqs.com/">
 <meta name="description" content="Welcome to InfoFAQs: explore The Cube, discover amusements, and preview our developing marketplace. Know more. Have fun.">
 <style>
 :root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#f7f3e9;background:#070e1b}*{box-sizing:border-box}body{margin:0}a{color:inherit}a:focus-visible{outline:3px solid #ffce73;outline-offset:4px}
@@ -14,20 +12,80 @@ header{border-bottom:1px solid #33455e;background:#080e19;padding:1.2rem max(1.2
 .button{display:inline-block;background:#ffd17c;color:#101521;padding:.95rem 1.35rem;border-radius:8px;text-decoration:none;font-weight:850;margin-top:1rem}
 main{max-width:1150px;margin:auto;padding:3rem 1.2rem}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem}.tile{border:1px solid #43506a;background:linear-gradient(145deg,#172b48,#101827);border-radius:16px;padding:1.6rem;min-height:190px}.tile h2{color:#ffd17c;margin-top:0}.tile p{line-height:1.55;color:#d4deec}.tile a{font-weight:750}
 .note{border-left:4px solid #e3b65b;padding:1rem 1.4rem;background:#121e32;margin:2rem 0;color:#dce6f4}
-.human-gate{margin:2rem 0;padding:1.6rem;border:1px solid #497b58;border-radius:16px;background:#10251e}.human-gate h2{margin-top:0;color:#b5f4c2}.green-button{background:#1fba55;color:#06180b;border:2px solid #b2f6c2;border-radius:10px;padding:1rem 1.5rem;font-size:1.1rem;font-weight:900;cursor:pointer;min-height:48px}.green-button:hover{background:#6de58c}.green-button:focus-visible{outline:3px solid #fff;outline-offset:4px}.gate-status{min-height:1.6em;color:#c7f8d3;font-weight:700}.gate-disclaimer{color:#d2e4d7;font-size:.95rem;line-height:1.5}
 footer{border-top:1px solid #34445b;padding:2rem max(1.2rem,calc((100vw - 1150px)/2));color:#ccd4df;font-size:.9rem}footer a{margin-right:1rem}
 @media(max-width:650px){.hero{min-height:470px;padding-top:3.5rem}.spotlight{width:200px;height:200px;right:-90px;bottom:-70px}nav{font-size:.9rem}}
+
+/* Homepage directory */
+.skip-link{position:absolute;left:1rem;top:-6rem;padding:.8rem;background:#ffd17c;color:#101521;z-index:10}.skip-link:focus{top:1rem}
+.directory{padding:2.5rem max(1.2rem,calc((100vw - 1150px)/2));background:#101b2c;border-bottom:1px solid #33455e}
+.directory h1{font-size:clamp(1.9rem,5vw,3rem);margin:0 0 .5rem;letter-spacing:-.035em;color:#ffdb96}.directory-intro{color:#d4deec;margin:0 0 1.5rem;line-height:1.6}
+.web-search{display:flex;flex-wrap:wrap;gap:.6rem;max-width:780px;margin-bottom:1.7rem}.web-search label{flex-basis:100%;font-weight:700}.web-search input{flex:1 1 220px;min-width:0;min-height:48px;border:1px solid #8094af;border-radius:10px;padding:.8rem 1rem;font:inherit;background:#070e1b;color:#f7f3e9}.web-search button{min-height:48px;padding:.8rem 1.25rem;border:0;border-radius:10px;background:#ffd17c;color:#101521;font:inherit;font-weight:800;cursor:pointer}.web-search input:focus-visible,.web-search button:focus-visible{outline:3px solid #ffce73;outline-offset:4px}
+.directory-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:.8rem}.directory-card{padding:1.1rem 1.2rem;border:1px solid #435b79;border-radius:12px;background:#15263d}.directory-card h2{font-size:1.15rem;color:#ffd17c;margin:0 0 .5rem}.directory-card ul{margin:0;padding:0;list-style:none}.directory-card a{display:block;padding:.6rem 0;min-height:44px;text-underline-offset:4px;font-weight:650}.directory-card a:hover{color:#ffd17c}.directory-caption{font-size:.9rem;color:#bdcce0;margin:1rem 0 0}.hero h2{font-size:clamp(3.6rem,10vw,8rem);line-height:.96;letter-spacing:-.05em;margin:1rem 0;color:#ffdb96;text-shadow:0 0 35px #ad722c66}
+
+
+/* META METAL — brushed steel, platinum and gold */
+body{background:#090b10;color:#f3f4f6}
+header{background:linear-gradient(180deg,#252a32 0%,#11151c 48%,#090c12 100%);border-bottom:1px solid #8b7343;box-shadow:0 3px 18px #0008}
+.brand{color:#eef0f4;text-shadow:0 1px 0 #000}.brand span{color:#eac880}
+.directory{position:relative;isolation:isolate;padding-top:3rem;padding-bottom:3rem;border-top:1px solid #6e7786;border-bottom:1px solid #ae8b4d;background:radial-gradient(ellipse at 95% 0%,#1b74a52b,transparent 55%),repeating-linear-gradient(0deg,#ffffff02 0px,#ffffff02 1px,transparent 1px,transparent 4px),linear-gradient(120deg,#20252e,#0e121a 55%,#1a212c)}
+.metal-badge{display:inline-flex;flex-wrap:wrap;gap:.6rem;align-items:center;border:1px solid #88734e;border-radius:5px;padding:.5rem .75rem;margin:0 0 1.2rem;background:linear-gradient(130deg,#3a414c,#141921);color:#eac880;font-size:.72rem;font-weight:850;letter-spacing:.16em;box-shadow:inset 0 1px #ffffff26,0 2px 8px #0005}
+.metal-badge span{color:#c5d7ea;border-left:1px solid #697484;padding-left:.6rem}
+.directory h1{color:#edf0f5;text-shadow:0 2px 2px #000b;font-weight:900;letter-spacing:-.04em}
+@supports(background-clip:text){.directory h1{background:linear-gradient(180deg,#fff 8%,#d6dce6 40%,#8d98aa 51%,#f3f5fa 76%,#bcc5d2 100%);background-clip:text;-webkit-background-clip:text;color:transparent;text-shadow:none}}
+.directory .eyebrow{color:#eccc8f;font-size:1.05rem;letter-spacing:.2em}
+.directory-intro{margin-top:1.1rem;color:#d7dde6}
+.directory-card{position:relative;border:1px solid #6e7989;border-top-color:#a0abbc;border-bottom-color:#35404e;border-radius:10px;background:repeating-linear-gradient(0deg,#ffffff03 0px,#ffffff03 1px,transparent 1px,transparent 3px),linear-gradient(145deg,#363d49 0%,#202630 45%,#171d27 100%);box-shadow:inset 0 1px 0 #ffffff26,inset 0 -1px 0 #0009,0 7px 16px #0004;padding-top:1.35rem}
+.directory-card::before{content:"";position:absolute;top:0;left:1.1rem;width:2.8rem;height:3px;background:#eac880;box-shadow:0 0 9px #eac88044}
+.directory-card h2{color:#f3d699;letter-spacing:.01em}
+.directory-card a{color:#eef2f8;text-decoration-color:#7e8b9e}
+.directory-card a:hover{color:#9bdcff;text-decoration-color:#9bdcff}
+.web-search input{background:linear-gradient(180deg,#090c12,#151b24);border-color:#7b8798;box-shadow:inset 0 2px 6px #0008;color:#fff}
+.web-search input::placeholder{color:#b9c3d0}
+.web-search button,.button{background:linear-gradient(180deg,#ffe8b6,#e1ba71 48%,#c49547 50%,#edcc8e);border:1px solid #ffe8b6;color:#14161b;box-shadow:inset 0 1px #fff8,0 3px 8px #0006}
+.web-search button:hover,.button:hover{background:linear-gradient(180deg,#fff0cd,#f1cc87);color:#080b10}
+.directory-caption{color:#c4cddc;line-height:1.65}
+.hero{background:radial-gradient(ellipse at 80% 10%,#215170 0%,transparent 55%),linear-gradient(130deg,#222a35,#121722 60%,#090c12)}
+.tile{background:linear-gradient(145deg,#29313d,#121822);border-color:#667488;box-shadow:inset 0 1px #ffffff17}
+footer{background:linear-gradient(180deg,#1b222d,#0a0d13);border-color:#79633f}
+@media(max-width:650px){.directory{padding-top:2rem}.metal-badge{font-size:.64rem;letter-spacing:.1em}.directory-caption{font-size:.85rem}}
+@media(forced-colors:active){.directory h1{background:none;color:CanvasText;-webkit-text-fill-color:CanvasText}.directory-card::before{background:Highlight}}
 </style></head><body>
-<header><div><a class="brand" href="index.html">Info<span>FAQs</span>.com</a><div class="tag">KNOW MORE. HAVE FUN. ONE EQUALS ONE.</div></div><nav aria-label="Main navigation"><a href="index.html">Home</a><a href="#cube">The Cube</a><a href="#marketplace">Marketplace</a><a href="#amusements">Amusements</a><a href="#newsroom">Newsroom</a><a href="mailto:bigtreeorders@gmail.com">Contact</a></nav></header>
-<section class="hero" id="cube"><div class="eyebrow">LIVE FROM THE TOP OF THE CUBE</div><h1>THE CUBE.</h1><p>Same website. A fresh seat at the show. Explore stories, laughs, ideas, and a marketplace in the making.</p><p><strong>From Your Company Incorporated</strong></p><a class="button" href="catbot100.html">▶ PLAY CATBOT 100 NOW</a><a class="button" href="#explore" style="margin-left:.75rem;background:transparent;color:#ffd17c;border:2px solid #ffd17c">Explore the Cube</a><div class="spotlight" aria-hidden="true"></div></section>
-<main id="explore"><div class="grid">
-<article class="tile" id="marketplace"><h2>Marketplace</h2><p>Discover the customer-first shopping experience we're building, one verified milestone at a time.</p><a href="#marketplace">Read marketplace status →</a></article>
-<article class="tile" id="amusements"><h2>Amusements</h2><p>Pull up a chair. The Cube is a place for jokes, creativity, and a fresh perspective.</p><a href="catbot100.html">Play CAT BOT 100 →</a></article>
+<a class="skip-link" href="#directory">Skip to everyday links</a>
+<header><div><a class="brand" href="index.html">Info<span>FAQs</span>.com</a><div class="tag">KNOW MORE. HAVE FUN. ONE EQUALS ONE.</div></div><nav aria-label="Main navigation"><a href="index.html">Home</a><a href="#directory">Everyday links</a><a href="#cube">The Cube</a><a href="10-faqs.html">10 FAQs</a><a href="catbot100.html">CATBOT 100</a><a href="marketplace-preview.html">Marketplace</a><a href="#amusements">Amusements</a><a href="#newsroom">Newsroom</a><a href="mailto:bigtreeorders@gmail.com">Contact</a></nav></header>
+
+<section class="directory" id="directory" aria-labelledby="directory-title">
+  <p class="metal-badge">MASTER.ORIGIN <span>META METAL · EDITION 1</span></p>
+  <h1 id="directory-title">WELCOME | HOME</h1>
+  <p class="eyebrow" aria-label="Infinity times infinity plus infinity">∞ × ∞ + ∞</p>
+  <p class="directory-caption">Metaverse · Multiverse · Uberverse · Omniverse · Echoverse · Realityverse · Inferenceverse · Knowledgeverse · <a href="#cube">The Cube</a></p>
+  <p class="directory-caption">The five senses: Sight · Hearing · Touch · Taste · Smell</p>
+  <p class="directory-intro">Your everyday starting point. Search the web or choose where you want to go.</p>
+  <form class="web-search" role="search" action="https://www.google.com/search" method="get">
+    <label for="web-query">Search the web with Google</label>
+    <input id="web-query" name="q" type="search" placeholder="What are you looking for?" required maxlength="500">
+    <button type="submit">Search</button>
+  </form>
+  <nav class="directory-grid" aria-label="Everyday links">
+    <section class="directory-card" aria-labelledby="links-news"><h2 id="links-news">News</h2><ul><li><a href="https://news.google.com/">Google News</a></li><li><a href="https://apnews.com/">AP News</a></li></ul></section>
+    <section class="directory-card" aria-labelledby="links-images"><h2 id="links-images">Images</h2><ul><li><a href="https://www.google.com/imghp">Google Images</a></li><li><a href="https://commons.wikimedia.org/">Wikimedia Commons</a></li></ul></section>
+    <section class="directory-card" aria-labelledby="links-sports"><h2 id="links-sports">Sports</h2><ul><li><a href="https://www.espn.com/">ESPN</a></li><li><a href="https://sports.yahoo.com/">Yahoo Sports</a></li></ul></section>
+    <section class="directory-card" aria-labelledby="links-finance"><h2 id="links-finance">Finance</h2><ul><li><a href="https://www.google.com/finance/">Google Finance</a></li><li><a href="https://finance.yahoo.com/">Yahoo Finance</a></li></ul></section>
+    <section class="directory-card" aria-labelledby="links-funny"><h2 id="links-funny">Funny</h2><ul><li><a href="https://www.youtube.com/results?search_query=clean+comedy">Comedy on YouTube</a></li><li><a href="https://www.theonion.com/">The Onion — satire</a></li></ul></section>
+    <section class="directory-card" aria-labelledby="links-friends"><h2 id="links-friends">Friends</h2><ul><li><a href="https://www.facebook.com/">Facebook</a></li><li><a href="https://www.instagram.com/">Instagram</a></li></ul></section>
+    <section class="directory-card" aria-labelledby="links-email"><h2 id="links-email">Email</h2><ul><li><a href="https://mail.google.com/">Gmail</a></li><li><a href="https://outlook.live.com/mail/">Outlook</a></li><li><a href="mailto:">Write an email</a></li></ul></section>
+  </nav>
+  <p class="directory-caption">Links open the selected service. Friends and email services may ask you to sign in.</p>
+</section>
+
+<section class="hero" id="cube"><div class="eyebrow">LIVE FROM THE TOP OF THE CUBE</div><h2>THE CUBE.</h2><p>Same website. A fresh seat at the show. Explore stories, laughs, ideas, and a marketplace in the making.</p><p><strong>From Your Company Incorporated</strong></p><a class="button" href="#explore">Explore the Cube</a><div class="spotlight" aria-hidden="true"></div></section>
+<main id="explore"><div class="grid"><article class="tile"><h2>10 FAQs for Partners</h2><p>Before We Meet. Ten questions and answers about business, trust, and getting to work.</p><a href="10-faqs.html">Read all 10 FAQs →</a></article>
+<article class="tile"><h2>CATBOT 100</h2><p>Enter the CATBOT 100 game and explore the Mine the Craft challenge.</p><a href="catbot100.html">Play CATBOT 100 →</a></article>
+<article class="tile"><h2>Marketplace</h2><p>Discover the customer-first shopping experience we're building, one verified milestone at a time.</p><a href="marketplace-preview.html">View development preview →</a></article>
+<article class="tile" id="amusements"><h2>Amusements</h2><p>Pull up a chair. The Cube is a place for jokes, creativity, and a fresh perspective.</p><a href="#cube">Back to the show →</a></article>
 <article class="tile" id="newsroom"><h2>Newsroom</h2><p>Ideas, updates, and stories from the top of The Cube. More to come.</p><a href="#cube">See the marquee →</a></article>
 <article class="tile"><h2>The Vault</h2><p>Public releases and selected projects will appear here when ready. Private materials stay private.</p><a href="mailto:bigtreeorders@gmail.com">Contact us →</a></article>
 </div><aside class="note"><strong>Building mile by mile.</strong> The marketplace is a development preview. Live checkout, payment processing, customer accounts, and fulfillment are not yet offered on this page.</aside>
-<section class="human-gate" id="human-gate" aria-labelledby="human-gate-title"><h2 id="human-gate-title">The Human Green Button</h2><p>THE TROLL: “Even with the key, a human must press the green button.”</p><button class="green-button" id="human-approve" type="button">🟢 I AM HUMAN — PRESS GREEN</button><p class="gate-status" id="human-gate-status" role="status" aria-live="polite">Awaiting a deliberate button press.</p><p class="gate-disclaimer">This is a public demonstration of human acknowledgment only. It does not verify identity, grant access, authorize payments, change permissions, or unlock private Edition 0.</p></section>
+<section class="note" id="human-green-button" aria-labelledby="human-green-title"><h2 id="human-green-title">The Human Green Button</h2><p>THE TROLL: “Even with the key, a human must press the green button.”</p><button type="button" id="human-acknowledge" style="padding:1rem 1.4rem;border:2px solid #9bffb0;border-radius:12px;background:#137a35;color:white;font:inherit;font-weight:800;cursor:pointer">🟢 I AM HUMAN — PRESS GREEN</button><p id="human-acknowledgement" role="status" aria-live="polite">Awaiting a deliberate button press.</p><p>This is a public demonstration of human acknowledgment only. It does not verify identity, grant access, authorize payments, change permissions, or unlock private Edition 0.</p></section><script>document.getElementById('human-acknowledge').addEventListener('click',function(){document.getElementById('human-acknowledgement').textContent='Human acknowledgment recorded on this page only.'});</script>
 <section><h2>Know more. Have fun.</h2><p>Questions, creativity, and commerce — with clarity about what's available today and what's still being built.</p><p>Brought to you by <a href="mailto:bigtreeorders@gmail.com">BigTreeOrders@gmail.com</a>.</p></section></main>
-<footer><p>© 2026 Richard Stein. All Rights Reserved. Your Company Incorporated.</p><p>Edition 1 public homepage. Private Edition 0 materials are not published.</p><a href="mailto:bigtreeorders@gmail.com">Contact</a><a href="#marketplace">Marketplace status</a></footer>
-<script>document.getElementById("human-approve").addEventListener("click",function(){document.getElementById("human-gate-status").textContent="GREEN BUTTON PRESSED — human acknowledgment recorded on this page only. Identity and authorization remain unverified.";this.textContent="✓ GREEN BUTTON PRESSED";});</script>
+<footer><p>© 2026 Richard Stein. All Rights Reserved. Your Company Incorporated.</p><p>Edition 1 public homepage. Private Edition 0 materials are not published.</p><a href="mailto:bigtreeorders@gmail.com">Contact</a><a href="marketplace-preview.html">Marketplace preview</a></footer>
 </body></html>
