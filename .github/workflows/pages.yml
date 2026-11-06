@@ -31,8 +31,13 @@ jobs:
           done
           cmp robots.txt robot.txt
           touch _site/.nojekyll
-          test "$(find _site -type f | wc -l)" -eq 11
-          test ! -e _site/marketplace
+          for file in marketplace/index.html marketplace/collectible-studio/index.html marketplace/assets/marketplace.css marketplace/assets/studio.js marketplace/assets/marketplace-qr.svg; do
+            test -f "$file"
+            test ! -L "$file"
+            mkdir -p "_site/$(dirname "$file")"
+            cp "$file" "_site/$file"
+          done
+          test "$(find _site -type f | wc -l)" -eq 16
           test ! -e _site/ARCHIVE
           test ! -e _site/the-cube
       - uses: actions/upload-pages-artifact@v3
@@ -41,3 +46,4 @@ jobs:
       - name: Deploy website
         id: deployment
         uses: actions/deploy-pages@v4
+
