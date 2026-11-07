@@ -25,11 +25,16 @@ jobs:
             exit 1
           fi
           python3 scripts/gate5_live_verify.py
+      - name: Diagnose public edge vs GitHub Pages origin (read-only)
+        if: always()
+        run: python3 scripts/gate5_origin_diagnostic.py
       - name: Upload actual production receipt (PASS or HOLD)
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: gate5-production-receipt
-          path: gate5-receipt.json
+          path: |
+            gate5-receipt.json
+            gate5-origin-diagnostics.json
           if-no-files-found: warn
           retention-days: 30
