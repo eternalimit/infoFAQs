@@ -9,7 +9,7 @@ import xml.etree.ElementTree as ET
 root = Path("_site")
 required = ["index.html", "404.html", "robots.txt", "robot.txt", "sitemap.xml",
             "business-profile.json", "CNAME", "catbot100.html", "10-faqs.html",
-            "marketplace.html", "mine/uni/index.html", ".nojekyll"]
+            "marketplace.html", "marketplace-preview.html", "mine/uni/index.html", ".nojekyll"]
 errors = []
 for name in required:
     p = root / name
@@ -28,6 +28,14 @@ if (root / "index.html").is_file():
         errors.append("Homepage does not link to final marketplace")
     if "marketplace-preview.html" in home:
         errors.append("Homepage still links to preview marketplace")
+if (root / "marketplace-preview.html").is_file():
+    legacy = (root / "marketplace-preview.html").read_text(encoding="utf-8")
+    if 'url=https://infofaqs.com/marketplace.html' not in legacy:
+        errors.append("Legacy marketplace does not redirect to official marketplace")
+if (root / "mine/uni/index.html").is_file():
+    course = (root / "mine/uni/index.html").read_text(encoding="utf-8")
+    if "/marketplace-preview.html" in course:
+        errors.append("MINE.UNI links to legacy marketplace")
 if (root / "marketplace.html").is_file():
     shop = (root / "marketplace.html").read_text(encoding="utf-8")
     if 'https://infofaqs.com/marketplace.html' not in shop:
@@ -44,6 +52,32 @@ if (root / "sitemap.xml").is_file():
             errors.append("Old preview marketplace still in sitemap")
     except ET.ParseError as exc:
         errors.append("Invalid sitemap XML: " + str(exc))
+# Audit every local href/src in published HTML before deployment.
+from html.parser import HTMLParser
+from urllib.parse import urlsplit, unquote
+class LocalLinks(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.links = []
+    def handle_starttag(self, tag, attrs):
+        for key, value in attrs:
+            if key in ("href", "src") and value:
+                self.links.append(value)
+for html in root.rglob("*.html"):
+    parser = LocalLinks()
+    parser.feed(html.read_text(encoding="utf-8"))
+    for link in parser.links:
+        parts = urlsplit(link)
+        if parts.scheme or parts.netloc or link.startswith(("#", "//")):
+            continue
+        target = unquote(parts.path)
+        if not target:
+            continue
+        dest = root / target.lstrip("/") if target.startswith("/") else html.parent / target
+        if dest.is_dir():
+            dest = dest / "index.html"
+        if not dest.is_file():
+            errors.append(f"Broken local link: {html.relative_to(root)} -> {link}")
 for name in required:
     p = root / name
     if p.is_file() and name != ".nojekyll":
