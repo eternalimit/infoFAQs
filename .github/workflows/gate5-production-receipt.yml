@@ -1,0 +1,35 @@
+name: Gate 5 production receipt
+on:
+  workflow_run:
+    workflows: ["Publish InfoFAQs"]
+    types: [completed]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify-production:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout exact Pages source
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      - name: Verify production HTTPS and deployed bytes
+        env:
+          SOURCE_COMMIT: ${{ github.event.workflow_run.head_sha || github.sha }}
+          PAGES_DEPLOY_CONCLUSION: ${{ github.event.workflow_run.conclusion || 'manual' }}
+        run: |
+          if [ "$PAGES_DEPLOY_CONCLUSION" != "success" ] && [ "$PAGES_DEPLOY_CONCLUSION" != "manual" ]; then
+            printf '{"gate5_status":"HOLD","reason":"Pages deployment did not succeed","pages_conclusion":"%s","source_commit":"%s"}\n' "$PAGES_DEPLOY_CONCLUSION" "$SOURCE_COMMIT" > gate5-receipt.json
+            exit 1
+          fi
+          python3 scripts/gate5_live_verify.py
+      - name: Upload actual production receipt (PASS or HOLD)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gate5-production-receipt
+          path: gate5-receipt.json
+          if-no-files-found: warn
+          retention-days: 30
