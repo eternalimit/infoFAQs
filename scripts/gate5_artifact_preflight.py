@@ -1,0 +1,55 @@
+#!/usr/bin/env python3
+"""Fail-closed validation of the exact InfoFAQs public Pages artifact."""
+from pathlib import Path
+import hashlib
+import re
+import sys
+import xml.etree.ElementTree as ET
+
+root = Path("_site")
+required = ["index.html", "404.html", "robots.txt", "robot.txt", "sitemap.xml",
+            "business-profile.json", "CNAME", "catbot100.html", "10-faqs.html",
+            "marketplace.html", "mine/uni/index.html", ".nojekyll"]
+errors = []
+for name in required:
+    p = root / name
+    if not p.is_file() or p.is_symlink():
+        errors.append("Missing or unsafe published file: " + name)
+    elif name != ".nojekyll":
+        source = Path(name)
+        if not source.is_file() or source.read_bytes() != p.read_bytes():
+            errors.append("Artifact/source byte mismatch: " + name)
+actual = {str(p.relative_to(root)) for p in root.rglob("*") if p.is_file()}
+if actual != set(required):
+    errors.append("Public allowlist differs: " + repr(sorted(actual ^ set(required))))
+if (root / "index.html").is_file():
+    home = (root / "index.html").read_text(encoding="utf-8")
+    if 'href="marketplace.html"' not in home:
+        errors.append("Homepage does not link to final marketplace")
+    if "marketplace-preview.html" in home:
+        errors.append("Homepage still links to preview marketplace")
+if (root / "marketplace.html").is_file():
+    shop = (root / "marketplace.html").read_text(encoding="utf-8")
+    if 'https://infofaqs.com/marketplace.html' not in shop:
+        errors.append("Marketplace canonical URL incorrect")
+    if "Prototype only" in shop or "Development preview" in shop:
+        errors.append("Marketplace still advertises a prototype")
+if (root / "sitemap.xml").is_file():
+    try:
+        tree = ET.parse(root / "sitemap.xml")
+        urls = [e.text for e in tree.iter() if e.tag.endswith("loc")]
+        if "https://infofaqs.com/marketplace.html" not in urls:
+            errors.append("Final marketplace absent from sitemap")
+        if any("marketplace-preview" in (u or "") for u in urls):
+            errors.append("Old preview marketplace still in sitemap")
+    except ET.ParseError as exc:
+        errors.append("Invalid sitemap XML: " + str(exc))
+for name in required:
+    p = root / name
+    if p.is_file() and name != ".nojekyll":
+        print(f"SHA256 {hashlib.sha256(p.read_bytes()).hexdigest()} {name}")
+if errors:
+    for error in errors:
+        print("ERROR:", error, file=sys.stderr)
+    sys.exit(1)
+print("PASS: exact public artifact is internally consistent; live HTTPS verification still required.")
