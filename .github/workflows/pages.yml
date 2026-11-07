@@ -24,7 +24,7 @@ jobs:
           set -eu
           rm -rf _site
           mkdir _site
-          for file in index.html 404.html robots.txt robot.txt sitemap.xml business-profile.json CNAME catbot100.html 10-faqs.html marketplace-preview.html; do
+          for file in index.html 404.html robots.txt robot.txt sitemap.xml business-profile.json CNAME catbot100.html 10-faqs.html marketplace-preview.html writing-assistant.html; do
             test -f "$file"
             test ! -L "$file"
             cp "$file" "_site/$file"
@@ -33,9 +33,13 @@ jobs:
           test -f mine/uni/index.html
           test ! -L mine/uni/index.html
           cp mine/uni/index.html _site/mine/uni/index.html
+          mkdir -p _site/images
+          test -f images/infoFAQs_logo_full.png
+          test ! -L images/infoFAQs_logo_full.png
+          cp images/infoFAQs_logo_full.png _site/images/infoFAQs_logo_full.png
           cmp robots.txt robot.txt
           touch _site/.nojekyll
-          test "$(find _site -type f | wc -l)" -eq 12
+          test "$(find _site -type f | wc -l)" -eq 14
           test ! -e _site/marketplace
           test ! -e _site/ARCHIVE
           test ! -e _site/the-cube
