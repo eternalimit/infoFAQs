@@ -39,6 +39,8 @@ jobs:
           test ! -e _site/marketplace
           test ! -e _site/ARCHIVE
           test ! -e _site/the-cube
+      - name: Gate 5 validate exact public artifact before deployment
+        run: python3 scripts/gate5_artifact_preflight.py
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
