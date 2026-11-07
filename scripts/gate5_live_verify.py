@@ -25,7 +25,7 @@ URLS = [
 report = {
     "timestamp_utc": datetime.datetime.now(datetime.timezone.utc).isoformat(),
     "repository": os.getenv("GITHUB_REPOSITORY", "unknown"),
-    "source_commit": os.getenv("GITHUB_SHA", "unknown"),
+    "source_commit": os.getenv("SOURCE_COMMIT", os.getenv("GITHUB_SHA", "unknown")),
     "dns": {},
     "tls": {},
     "http": {},
