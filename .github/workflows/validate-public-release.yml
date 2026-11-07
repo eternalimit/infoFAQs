@@ -1,0 +1,54 @@
+name: Validate public InfoFAQs release
+on:
+  pull_request:
+  push:
+    branches:
+      - fix/public-homepage-real-product-2026
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate public site and crawl files
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from html.parser import HTMLParser
+          import xml.etree.ElementTree as ET
+          class Links(HTMLParser):
+              def __init__(self): super().__init__(); self.links=[]
+              def handle_starttag(self,tag,attrs):
+                  if tag=='a':
+                      d=dict(attrs)
+                      if 'href' in d:self.links.append(d['href'])
+          root=Path('.')
+          html=(root/'index.html').read_text()
+          assert '© 2026 Richard Nathan Stein. All rights reserved.' in html
+          for phrase in ('CATBOT 100','10 FAQs for Partners','The Human Green Button','MINE.UNI'):
+              assert phrase in html,phrase
+          assert 'Private Edition 0 materials are not published' in html
+          p=Links();p.feed(html)
+          missing=[]
+          for link in p.links:
+              if link.startswith(('http:','https:','mailto:','#','tel:','javascript:')):continue
+              target=link.split('#',1)[0].split('?',1)[0]
+              if not target:continue
+              f=root/target.lstrip('/')
+              if f.is_dir():f=f/'index.html'
+              if not f.is_file():missing.append(link)
+          assert not missing, f'Broken local homepage links: {missing}'
+          robots=(root/'robots.txt').read_text()
+          assert 'Sitemap: https://infofaqs.com/sitemap.xml' in robots
+          sitemap=ET.parse(root/'sitemap.xml').getroot()
+          ns={'s':'http://www.sitemaps.org/schemas/sitemap/0.9'}
+          urls=[e.text for e in sitemap.findall('.//s:loc',ns)]
+          assert urls and all(u.startswith('https://infofaqs.com/') for u in urls)
+          for url in urls:
+              target=url.removeprefix('https://infofaqs.com/').split('?',1)[0]
+              f=root/target
+              if not target or f.is_dir():f=f/'index.html'
+              assert f.is_file(),f'Missing sitemap target: {url}'
+          print('PASS: homepage assets, protected labels, robots, sitemap, and local links')
+          PY
