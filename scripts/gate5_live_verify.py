@@ -19,7 +19,7 @@ URLS = [
     BASE + "/sitemap.xml",
     BASE + "/10-faqs.html",
     BASE + "/catbot100.html",
-    BASE + "/marketplace-preview.html",
+    BASE + "/marketplace.html",
     BASE + "/mine/uni/",
 ]
 report = {
@@ -121,7 +121,7 @@ for url, relative in (
     (BASE + "/sitemap.xml", "sitemap.xml"),
     (BASE + "/10-faqs.html", "10-faqs.html"),
     (BASE + "/catbot100.html", "catbot100.html"),
-    (BASE + "/marketplace-preview.html", "marketplace-preview.html"),
+    (BASE + "/marketplace.html", "marketplace.html"),
     (BASE + "/mine/uni/", "mine/uni/index.html"),
 ):
     source = Path(relative)
