@@ -118,13 +118,19 @@ def enrich(entry):
 
 def main():
     ap = argparse.ArgumentParser(description="Create InfoFAQs top-sites directory data.")
-    ap.add_argument("--list-id", default="94P72", help="Permanent Tranco list ID (default: 94P72)")
+    ap.add_argument("--list-id", default="latest", help="Permanent Tranco list ID, or latest (default: latest)")
     ap.add_argument("--count", type=int, default=1000, choices=range(1, 1001))
     ap.add_argument("--enrich", action="store_true",
                     help="Read title/description only, after robots.txt permission checks.")
     args = ap.parse_args()
 
-    download_url, entries = load_domains(args.list_id, args.count)
+    list_id = args.list_id
+    if list_id == "latest":
+        _, _, raw_id = fetch("https://tranco-list.eu/top-1m-id", 256)
+        list_id = raw_id.decode("utf-8", errors="replace").strip()
+        if not list_id or any(ch not in "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" for ch in list_id):
+            raise RuntimeError("Could not resolve a valid current Tranco list ID.")
+    download_url, entries = load_domains(list_id, args.count)
     if args.enrich:
         for index, entry in enumerate(entries, 1):
             enrich(entry)
@@ -137,7 +143,7 @@ def main():
         "source": SOURCE,
         "source_download": download_url,
         "ranking": "Tranco",
-        "list_id": args.list_id,
+        "list_id": list_id,
         "retrieved_at": datetime.now(timezone.utc).isoformat(),
         "count": len(entries),
         "enrichment": "robots.txt-respecting title/description only" if args.enrich else "ranked domains only",
