@@ -1,0 +1,19 @@
+name: Diagnose Marketplace edge (read-only)
+on:
+  push:
+    branches:
+      - repair/gate5-publish-route-20261108
+    paths:
+      - scripts/gate5_marketplace_diff_diagnostic.py
+      - .github/workflows/diagnose-marketplace-edge.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compare three public responses without printing page content
+        run: python3 scripts/gate5_marketplace_diff_diagnostic.py
