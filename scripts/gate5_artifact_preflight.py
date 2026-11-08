@@ -10,7 +10,7 @@ import xml.etree.ElementTree as ET
 root = Path("_site")
 required = ["index.html", "404.html", "robots.txt", "robot.txt", "sitemap.xml",
             "business-profile.json", "CNAME", "catbot100.html", "10-faqs.html",
-            "marketplace.html", "marketplace-preview.html", "top-sites.html", "data/top-sites.json", "mine/uni/index.html",
+            "marketplace.html", "marketplace-preview.html", "top-sites.html", "data/top-sites.json", "craft-engine.mjs", "artifact-library.mjs", "mine/uni/index.html",
             "gateway/genesis/index.html", "gateway/genesis/README.md",
             "gateway/genesis/COSMO8.md", "gateway/genesis/BACKWARDS_PROTOCOL.md", ".nojekyll"]
 errors = []
@@ -25,6 +25,12 @@ for name in required:
 actual = {str(p.relative_to(root)) for p in root.rglob("*") if p.is_file()}
 if actual != set(required):
     errors.append("Public allowlist differs: " + repr(sorted(actual ^ set(required))))
+if (root / "catbot100.html").is_file():
+    game = (root / "catbot100.html").read_text(encoding="utf-8")
+    if 'from "./craft-engine.mjs"' not in game:
+        errors.append("CAT BOT page does not load the crafting engine core")
+    if "Crafting Engine" not in game or "createCraftReceipt" not in game:
+        errors.append("CAT BOT crafting interface or receipt integration is missing")
 if (root / "index.html").is_file():
     home = (root / "index.html").read_text(encoding="utf-8")
     if 'href="marketplace.html"' not in home:
