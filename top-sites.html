@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Top 1,000 Websites | InfoFAQs.com</title>
+<meta name="description" content="Explore a ranked directory of the top 1,000 public web domains, with source attribution and direct links.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://infofaqs.com/top-sites.html">
+<style>
+:root{color-scheme:dark;font-family:system-ui,sans-serif;background:#090d14;color:#f2f4f8}
+*{box-sizing:border-box}body{margin:0}header,main,footer{max-width:1100px;margin:auto;padding:1.3rem}
+a{color:#f0cf91}header{border-bottom:1px solid #78633f}h1{font-size:clamp(2rem,6vw,4rem);margin:.5rem 0;color:#f2d59c}
+p{line-height:1.6;color:#d1d9e5}.controls{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.5rem 0}
+input,select{font:inherit;padding:.8rem;border-radius:8px;border:1px solid #68788e;background:#121c2a;color:#fff}
+input{flex:1;min-width:220px}.status{padding:.8rem;border:1px solid #6c7890;border-radius:8px}
+table{width:100%;border-collapse:collapse;margin-top:1rem}th,td{text-align:left;padding:.7rem;border-bottom:1px solid #344052}th{color:#e8ca8e}
+small{color:#aebbd0}.rank{width:5rem}.domain{font-weight:700}
+@media(max-width:600px){table{font-size:.9rem}th,td{padding:.5rem}}
+</style>
+</head>
+<body>
+<header>
+<a href="/">InfoFAQs.com</a>
+<p>THE CUBE · ECHO MINER · PUBLIC WEB DIRECTORY</p>
+<h1>Top 1,000 Websites</h1>
+<p>A ranked discovery index. Select a domain to visit its original website. InfoFAQs does not impersonate, proxy, clone, or redirect visitors away from these publishers.</p>
+</header>
+<main>
+<p class="status" id="status" role="status">Directory data has not yet been generated. Run <code>python tools/echo_miner.py</code> in the repository to create the ranked catalog.</p>
+<div class="controls">
+<label for="search">Search domains</label>
+<input id="search" type="search" placeholder="Search by domain or page title">
+<label for="limit">Show</label>
+<select id="limit"><option>50</option><option>100</option><option>250</option><option>500</option><option>1000</option></select>
+</div>
+<table>
+<thead><tr><th class="rank">Rank</th><th>Website</th><th>Page description</th><th>Open</th></tr></thead>
+<tbody id="rows"></tbody>
+</table>
+<p><small>Ranking source: <a href="https://tranco-list.eu/list/94P72">Tranco list 94P72</a>. Rankings are a dated snapshot and can change. Source sites retain control of their content and access rules.</small></p>
+</main>
+<footer><a href="/">InfoFAQs home</a> · <a href="/robots.txt">robots.txt</a> · <a href="/sitemap.xml">Sitemap</a></footer>
+<script>
+(async function(){
+ const status=document.getElementById("status"), rows=document.getElementById("rows");
+ const search=document.getElementById("search"), limit=document.getElementById("limit");
+ let entries=[];
+ function render(){
+   const q=search.value.trim().toLowerCase(), max=Number(limit.value);
+   const filtered=entries.filter(x=>(x.domain+" "+(x.title||"")+" "+(x.description||"")).toLowerCase().includes(q)).slice(0,max);
+   rows.replaceChildren();
+   for(const item of filtered){
+     const tr=document.createElement("tr");
+     for(const value of [String(item.rank),item.title||item.domain,item.description||"Ranked domain; description not collected.", ""]){
+       const td=document.createElement("td");
+       if(value===""){const a=document.createElement("a");a.href=item.url;a.textContent="Visit original";a.rel="noopener noreferrer";a.target="_blank";td.append(a)}
+       else td.textContent=value;
+       tr.append(td);
+     }
+     rows.append(tr);
+   }
+   status.textContent="Loaded "+entries.length+" ranked domains. Showing "+filtered.length+".";
+ }
+ search.addEventListener("input",render);limit.addEventListener("change",render);
+ try{
+   const response=await fetch("/data/top-sites.json",{cache:"no-store"});
+   if(!response.ok) throw new Error("Catalog data is not deployed yet.");
+   const data=await response.json();entries=data.entries||[];
+   render();
+ }catch(error){status.textContent=error.message+" The source list is available at https://tranco-list.eu/list/94P72. The miner does not copy third-party website pages."}
+})();
+</script>
+</body>
+</html>
