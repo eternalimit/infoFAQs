@@ -10,13 +10,14 @@
 <h3>Available recipes</h3><div id="recipes" class="craft-grid"></div>
 <h3>Crafted artifacts</h3><ul id="artifacts"></ul>
 </section>
-<div class="controls"><button id="reset" type="button">New round</button><button id="receipt" type="button">Generate SHA-256 receipt</button><button id="copy" type="button">Copy receipt</button></div><p id="status" role="status" aria-live="polite"></p><pre id="output">No receipt generated yet.</pre><p>Stone +1 · Crystal +3 · Gold +5 · Gem +10. Each round has 36 blocks. Receipts are generated locally in your browser.</p><footer>© 2026 Richard Stein. All Rights Reserved. Public Edition 1. Private Edition 0 archives and historical receipts are not published.</footer>
+<div class="controls"><button id="reset" type="button">New round</button><button id="receipt" type="button">Generate SHA-256 receipt</button><button id="copy" type="button">Copy receipt</button><button id="manifest" type="button">Export artifact manifest</button><button id="verify-manifest" type="button">Verify manifest</button></div><p id="status" role="status" aria-live="polite"></p><pre id="output">No receipt generated yet.</pre><p>Stone +1 · Crystal +3 · Gold +5 · Gem +10. Each round has 36 blocks. Receipts are generated locally in your browser.</p><footer>© 2026 Richard Stein. All Rights Reserved. Public Edition 1. Private Edition 0 archives and historical receipts are not published.</footer>
 <script type="module">
 import { createCraftState, addResource, canCraft, craft, createCraftReceipt } from "./craft-engine.mjs";
+import { createOriginRegister, createArtifactManifest, verifyArtifactManifest } from "./artifact-library.mjs";
 "use strict";
 const kinds=[{name:"Stone",points:1,symbol:"▦"},{name:"Crystal",points:3,symbol:"◆"},{name:"Gold",points:5,symbol:"⬟"},{name:"Gem",points:10,symbol:"✦"}];
 const mine=document.getElementById("mine"),scoreEl=document.getElementById("score"),blocksEl=document.getElementById("blocks"),lastEl=document.getElementById("last"),statusEl=document.getElementById("status"),output=document.getElementById("output");
-let board=[],score=0,mined=0,events=[],receiptText="",craftState=createCraftState();
+let board=[],score=0,mined=0,events=[],receiptText="",craftState=createCraftState(),lastManifest=null,originRegister=createOriginRegister();
 const inventoryEl=document.getElementById("inventory"),recipesEl=document.getElementById("recipes"),artifactsEl=document.getElementById("artifacts");
 const recipeLabels={stone_brick:"Stone Brick",crystal_lens:"Crystal Lens",gold_seal:"Gold Seal",meta_forge_core:"META FORGE CORE"};
 function renderCrafting(){
@@ -43,5 +44,18 @@ function dig(i,b){if(b.disabled)return;const k=kinds[board[i]];b.disabled=true;b
 async function generateReceipt(){const payload={game:"CAT BOT — Mine the Craft",edition:"1-public",blocksMined:mined,score,events,crafting:createCraftReceipt(craftState)};const raw=JSON.stringify(payload);let digest="UNAVAILABLE";if(crypto.subtle){try{const hash=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(raw));digest=Array.from(new Uint8Array(hash),b=>b.toString(16).padStart(2,"0")).join("");}catch(e){digest="UNAVAILABLE";}}receiptText="SHA-256 (JSON payload): "+digest+"\n"+raw;output.textContent=receiptText;statusEl.textContent="Receipt generated for "+mined+" mined blocks.";}
 document.getElementById("reset").addEventListener("click",newRound);
 document.getElementById("receipt").addEventListener("click",generateReceipt);
+document.getElementById("manifest").addEventListener("click",async()=>{
+ try{
+  lastManifest=await createArtifactManifest(createCraftReceipt(craftState),originRegister);
+  const blob=new Blob([JSON.stringify(lastManifest,null,2)+"\\n"],{type:"application/json"});
+  const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="catbot-artifact-manifest.json";a.click();URL.revokeObjectURL(url);
+  statusEl.textContent="Manifest exported. SHA-256: "+lastManifest.manifestSha256;
+ }catch(error){statusEl.textContent="Manifest export failed: "+error.message;}
+});
+document.getElementById("verify-manifest").addEventListener("click",async()=>{
+ if(!lastManifest){statusEl.textContent="Export a manifest first; no manifest is loaded.";return;}
+ const result=await verifyArtifactManifest(lastManifest);
+ statusEl.textContent=result.ok?"PASS — "+result.artifactsVerified+" artifacts verified; "+result.sourcesReferenced+" MASTER.ORIGIN sources referenced. Manifest SHA-256: "+result.manifestSha256:"FAIL — "+result.reason;
+});
 document.getElementById("copy").addEventListener("click",async()=>{if(!receiptText){statusEl.textContent="Generate a receipt first.";return;}try{await navigator.clipboard.writeText(receiptText);statusEl.textContent="Receipt copied.";}catch(e){statusEl.textContent="Copy unavailable. Select the receipt text manually.";}});newRound();
 </script></body></html>
