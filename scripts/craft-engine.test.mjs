@@ -67,3 +67,12 @@ test("craft receipt reconciles inventory and artifact ledger", () => {
 test("unknown recipe is rejected", () => {
   assert.throws(() => canCraft(createCraftState(), "not_a_recipe"), /Unknown recipe/);
 });
+
+import { createOriginRegister, registerOriginSource, createArtifactManifest, verifyArtifactManifest } from "../artifact-library.mjs";
+import { webcrypto } from "node:crypto";
+
+const sampleCraftReceipt = { engine: "CAT BOT Mine the Craft", engineVersion: "1.0.0", inventory: {stone:0,crystal:0,gold:0,gem:0}, craftedCount: 1, artifacts: [{id:"artifact-000001",recipeId:"stone_brick",name:"Stone Brick",costs:{stone:3},craftedOrdinal:1}] };
+test("MASTER.ORIGIN register preserves source references without changing source records", () => { const empty=createOriginRegister(); const full=registerOriginSource(empty,{sourceId:"master-1",filename:"origin.png",sha256:"a".repeat(64)}); assert.equal(empty.sources.length,0); assert.equal(full.sources.length,1); assert.match(full.sources[0].preservation,/not changed/); });
+test("MASTER.ORIGIN rejects unverified source hashes", () => { assert.throws(()=>registerOriginSource(createOriginRegister(),{sourceId:"x",filename:"x.png",sha256:"bad"}),/SHA-256/); });
+test("Artifact manifest exports and verifies with SHA-256", async () => { const manifest=await createArtifactManifest(sampleCraftReceipt,createOriginRegister(),webcrypto); const result=await verifyArtifactManifest(manifest,webcrypto); assert.equal(result.ok,true); assert.equal(result.artifactsVerified,1); });
+test("Artifact manifest detects tampering", async () => { const manifest=await createArtifactManifest(sampleCraftReceipt,createOriginRegister(),webcrypto); manifest.artifacts[0].name="altered"; const result=await verifyArtifactManifest(manifest,webcrypto); assert.equal(result.ok,false); });
