@@ -9,7 +9,9 @@ import xml.etree.ElementTree as ET
 root = Path("_site")
 required = ["index.html", "404.html", "robots.txt", "robot.txt", "sitemap.xml",
             "business-profile.json", "CNAME", "catbot100.html", "10-faqs.html",
-            "marketplace.html", "marketplace-preview.html", "mine/uni/index.html", ".nojekyll"]
+            "marketplace.html", "marketplace-preview.html", "mine/uni/index.html",
+            "gateway/genesis/index.html", "gateway/genesis/README.md",
+            "gateway/genesis/COSMO8.md", "gateway/genesis/BACKWARDS_PROTOCOL.md", ".nojekyll"]
 errors = []
 for name in required:
     p = root / name
