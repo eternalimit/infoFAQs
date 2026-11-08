@@ -33,9 +33,15 @@ jobs:
           test -f mine/uni/index.html
           test ! -L mine/uni/index.html
           cp mine/uni/index.html _site/mine/uni/index.html
+          mkdir -p _site/gateway/genesis
+          for file in index.html README.md COSMO8.md BACKWARDS_PROTOCOL.md; do
+            test -f "gateway/genesis/$file"
+            test ! -L "gateway/genesis/$file"
+            cp "gateway/genesis/$file" "_site/gateway/genesis/$file"
+          done
           cmp robots.txt robot.txt
           touch _site/.nojekyll
-          test "$(find _site -type f | wc -l)" -eq 13
+          test "$(find _site -type f | wc -l)" -eq 17
           test ! -e _site/marketplace
           test ! -e _site/ARCHIVE
           test ! -e _site/the-cube
