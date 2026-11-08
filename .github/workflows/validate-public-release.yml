@@ -11,6 +11,8 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v4
+      - name: Test crafting engine core
+        run: node --test scripts/craft-engine.test.mjs
       - name: Validate public site and crawl files
         run: |
           python3 - <<'PY'
