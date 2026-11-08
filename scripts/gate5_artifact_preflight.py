@@ -10,7 +10,7 @@ import xml.etree.ElementTree as ET
 root = Path("_site")
 required = ["index.html", "404.html", "robots.txt", "robot.txt", "sitemap.xml",
             "business-profile.json", "CNAME", "catbot100.html", "10-faqs.html",
-            "marketplace.html", "marketplace-preview.html", "top-sites.html", "data/top-sites.json", "craft-engine.mjs", "mine/uni/index.html",
+            "marketplace.html", "marketplace-preview.html", "top-sites.html", "data/top-sites.json", "craft-engine.mjs", "artifact-library.mjs", "mine/uni/index.html",
             "gateway/genesis/index.html", "gateway/genesis/README.md",
             "gateway/genesis/COSMO8.md", "gateway/genesis/BACKWARDS_PROTOCOL.md", ".nojekyll"]
 errors = []
