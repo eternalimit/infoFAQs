@@ -2,6 +2,7 @@
 """Fail-closed validation of the exact InfoFAQs public Pages artifact."""
 from pathlib import Path
 import hashlib
+import json
 import re
 import sys
 import xml.etree.ElementTree as ET
@@ -9,7 +10,7 @@ import xml.etree.ElementTree as ET
 root = Path("_site")
 required = ["index.html", "404.html", "robots.txt", "robot.txt", "sitemap.xml",
             "business-profile.json", "CNAME", "catbot100.html", "10-faqs.html",
-            "marketplace.html", "marketplace-preview.html", "mine/uni/index.html",
+            "marketplace.html", "marketplace-preview.html", "top-sites.html", "data/top-sites.json", "mine/uni/index.html",
             "gateway/genesis/index.html", "gateway/genesis/README.md",
             "gateway/genesis/COSMO8.md", "gateway/genesis/BACKWARDS_PROTOCOL.md", ".nojekyll"]
 errors = []
@@ -63,6 +64,21 @@ if (root / "sitemap.xml").is_file():
             errors.append("Old preview marketplace still in sitemap")
     except ET.ParseError as exc:
         errors.append("Invalid sitemap XML: " + str(exc))
+if (root / "data/top-sites.json").is_file():
+    try:
+        catalog = json.loads((root / "data/top-sites.json").read_text(encoding="utf-8"))
+        entries = catalog.get("entries", [])
+        ranks = [item.get("rank") for item in entries]
+        if catalog.get("count") != 1000 or len(entries) != 1000:
+            errors.append("Top Sites catalog must contain exactly 1,000 entries")
+        if ranks != list(range(1, 1001)):
+            errors.append("Top Sites catalog ranks must be consecutive from 1 to 1,000")
+        if not catalog.get("list_id") or not catalog.get("source_download"):
+            errors.append("Top Sites catalog source provenance is missing")
+        if any(not item.get("domain") or not item.get("url", "").startswith("https://") for item in entries):
+            errors.append("Top Sites catalog contains an invalid domain or destination")
+    except (ValueError, TypeError, AttributeError) as exc:
+        errors.append("Invalid Top Sites catalog JSON: " + str(exc))
 # Audit every local href/src in published HTML before deployment.
 from html.parser import HTMLParser
 from urllib.parse import urlsplit, unquote
