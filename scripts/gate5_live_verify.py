@@ -107,8 +107,24 @@ for url in URLS:
             if url.endswith("/sitemap.xml"):
                 ok = b"https://infofaqs.com/" in data
                 report["checks"]["sitemap_canonical_present"] = ok
+                marketplace_excluded = b"https://infofaqs.com/marketplace.html" not in data
+                report["checks"]["marketplace_excluded_from_sitemap"] = marketplace_excluded
                 if not ok:
                     failures.append("Canonical sitemap URL missing")
+                if not marketplace_excluded:
+                    failures.append("Under-construction marketplace remains in sitemap")
+            if url.endswith("/marketplace.html"):
+                page = data.decode("utf-8", errors="replace").lower()
+                checks = {
+                    "marketplace_noindex": 'name="robots" content="noindex,nofollow"' in page,
+                    "marketplace_under_construction": "under construction" in page,
+                    "shopify_only_commerce": "exclusively through the official yci shopify storefront" in page,
+                    "no_marketplace_order_capture": "does not accept orders" in page and "mailto:" not in page,
+                }
+                report["checks"].update(checks)
+                for name, ok in checks.items():
+                    if not ok:
+                        failures.append("Marketplace policy check failed: " + name)
     except Exception as exc:
         report["http"][url] = {"error": str(exc)}
         failures.append("Fetch failed: " + url)

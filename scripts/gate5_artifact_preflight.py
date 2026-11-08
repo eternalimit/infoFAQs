@@ -42,14 +42,23 @@ if (root / "marketplace.html").is_file():
     shop = (root / "marketplace.html").read_text(encoding="utf-8")
     if 'https://infofaqs.com/marketplace.html' not in shop:
         errors.append("Marketplace canonical URL incorrect")
-    if "Prototype only" in shop or "Development preview" in shop:
-        errors.append("Marketplace still advertises a prototype")
+    lower_shop = shop.lower()
+    if 'name="robots" content="noindex,nofollow"' not in lower_shop:
+        errors.append("Marketplace must be excluded from search indexing")
+    if "under construction" not in lower_shop:
+        errors.append("Marketplace must display under-construction status")
+    if "exclusively through the official yci shopify storefront" not in lower_shop:
+        errors.append("Marketplace must enforce Shopify-only commerce")
+    if "mailto:" in lower_shop or "type=" + '"submit"' in lower_shop:
+        errors.append("Marketplace must not collect sales inquiries or orders")
+    if "payment details" not in lower_shop or "does not accept orders" not in lower_shop:
+        errors.append("Marketplace commerce boundary notice is missing")
 if (root / "sitemap.xml").is_file():
     try:
         tree = ET.parse(root / "sitemap.xml")
         urls = [e.text for e in tree.iter() if e.tag.endswith("loc")]
-        if "https://infofaqs.com/marketplace.html" not in urls:
-            errors.append("Final marketplace absent from sitemap")
+        if "https://infofaqs.com/marketplace.html" in urls:
+            errors.append("Under-construction marketplace must not appear in sitemap")
         if any("marketplace-preview" in (u or "") for u in urls):
             errors.append("Old preview marketplace still in sitemap")
     except ET.ParseError as exc:
