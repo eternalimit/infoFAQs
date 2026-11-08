@@ -22,7 +22,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
       - name: Test crafting engine core
-        run: node --test scripts/craft-engine.test.mjs
+        run: node --test scripts/craft-engine.test.mjs scripts/artifact-library.test.mjs
       - name: Generate ranked Top 1,000 directory data
         run: python3 tools/echo_miner.py --list-id latest --count 1000
       - name: Prepare public allowlist only
@@ -30,7 +30,7 @@ jobs:
           set -eu
           rm -rf _site
           mkdir -p _site/data
-          for file in index.html 404.html robots.txt robot.txt sitemap.xml business-profile.json CNAME catbot100.html 10-faqs.html marketplace.html marketplace-preview.html top-sites.html craft-engine.mjs; do
+          for file in index.html 404.html robots.txt robot.txt sitemap.xml business-profile.json CNAME catbot100.html 10-faqs.html marketplace.html marketplace-preview.html top-sites.html craft-engine.mjs artifact-library.mjs; do
             test -f "$file"
             test ! -L "$file"
               cp "$file" "_site/$file"
@@ -50,7 +50,7 @@ jobs:
           done
           cmp robots.txt robot.txt
           touch _site/.nojekyll
-          test "$(find _site -type f | wc -l)" -eq 20
+          test "$(find _site -type f | wc -l)" -eq 21
           test ! -e _site/marketplace
           test ! -e _site/ARCHIVE
           test ! -e _site/the-cube
