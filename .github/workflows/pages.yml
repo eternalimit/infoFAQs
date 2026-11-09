@@ -38,6 +38,10 @@ jobs:
           test -f data/top-sites.json
           test ! -L data/top-sites.json
           cp data/top-sites.json _site/data/top-sites.json
+          mkdir -p _site/bin
+          test -f bin/index.html
+          test ! -L bin/index.html
+          cp bin/index.html _site/bin/index.html
           mkdir -p _site/mine/uni
           test -f mine/uni/index.html
           test ! -L mine/uni/index.html
@@ -50,7 +54,7 @@ jobs:
           done
           cmp robots.txt robot.txt
           touch _site/.nojekyll
-          test "$(find _site -type f | wc -l)" -eq 21
+          test "$(find _site -type f | wc -l)" -eq 22
           test ! -e _site/marketplace
           test ! -e _site/ARCHIVE
           test ! -e _site/the-cube
