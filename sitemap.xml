@@ -4,6 +4,6 @@
   <url><loc>https://infofaqs.com/catbot100.html</loc></url>
   <url><loc>https://infofaqs.com/10-faqs.html</loc></url>
   <url><loc>https://infofaqs.com/mine/uni/</loc></url>
-  <url><loc>https://infofaqs.com/marketplace.html</loc></url>
+  <!-- Marketplace is preserved on the site but omitted from indexing while marked noindex and under construction. -->
   <url><loc>https://infofaqs.com/top-sites.html</loc></url>
 </urlset>
