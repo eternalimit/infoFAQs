@@ -1,0 +1,11 @@
+# Green Binder Golden Log — InfoFAQs Edition 1
+
+Append-only staging verification log. This file is not included in the public Pages artifact allowlist. Historical records remain unchanged.
+
+## 2026-11-10 13:47 PST (21:47 UTC) — Richard Gate continuation
+- Source: authenticated GitHub branch API. Action: inspect main and PR #29. PASS: main 6e984f9171b8a16921cb16ad3a7f6cbe463863e9; PR #29 open, draft, unmerged, mergeable; candidate 583693086ce19c6d4a090ee00433eed27fef09ac. Next: preserve staging and verify release prerequisites.
+- Source: GitHub Actions run https://github.com/eternalimit/infoFAQs/actions/runs/42897176984, job 130113246948, completed 2026-11-10 20:37 UTC. Action: inspect exact 24-file artifact preflight and unit tests. PASS: 17 tests, 0 failures; exact public artifact internally consistent; 23 source-file SHA-256 digests emitted, plus .nojekyll. Candidate homepage SHA-256 34c5011c71dfd4571b577f286979151cdf60071184fa468125217ec9280b53bb; infofaq/index.html SHA-256 0f99e7a4cedfa95c08607f0431b6681eac3baa459873faa9a68dd6df9172a411. Next: independent hosting verification and conditional release.
+- Source: https://infofaqs.com/ fetched 2026-11-10. Action: check public homepage. PASS: homepage reachable, CATBOT 100, 10 FAQs, MINE.UNI, AI links, Human Green Button visible. FAIL (expected before release): old Marketplace wording still visible. Next: release staging candidate only after hosting gates pass.
+- Source: public retrieval attempts https://www.infofaqs.com/ , https://infofaqs.com/marketplace.html , https://infofaqs.com/infofaq/ , https://infofaqs.com/robots.txt , https://infofaqs.com/sitemap.xml . Action: test public routes. UNVERIFIED: retrieval service returned errors; not proof of origin 404/TLS failure. Next: verify authoritative DNS, HTTPS chain/redirects and Pages domain settings with suitable access.
+- Source: connected GitHub API. Action: assess Pages custom domain. UNVERIFIED: Pages configuration GET /repos/eternalimit/infoFAQs/pages is unsupported by this connection; CNAME source file does not prove Pages settings. Cloudflare zone settings unavailable. Next: obtain authorized Pages settings and Cloudflare zone read access, then independently validate public route and release.
+- Change control: no production merge/deploy, no private archive modification, no invented live SHA-256. EXIT NOT CERTIFIED.
