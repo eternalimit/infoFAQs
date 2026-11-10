@@ -52,9 +52,13 @@ jobs:
             test ! -L "gateway/genesis/$file"
             cp "gateway/genesis/$file" "_site/gateway/genesis/$file"
           done
+          mkdir -p _site/receipt
+          test -f receipt/index.html
+          test ! -L receipt/index.html
+          cp receipt/index.html _site/receipt/index.html
           cmp robots.txt robot.txt
           touch _site/.nojekyll
-          test "$(find _site -type f | wc -l)" -eq 22
+          test "$(find _site -type f | wc -l)" -eq 23
           test ! -e _site/marketplace
           test ! -e _site/ARCHIVE
           test ! -e _site/the-cube
