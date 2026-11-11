@@ -12,7 +12,7 @@ required = ["index.html", "404.html", "robots.txt", "robot.txt", "sitemap.xml",
             "business-profile.json", "CNAME", "catbot100.html", "10-faqs.html",
             "marketplace.html", "marketplace-preview.html", "top-sites.html", "data/top-sites.json", "craft-engine.mjs", "artifact-library.mjs", "mine/uni/index.html",
             "gateway/genesis/index.html", "gateway/genesis/README.md",
-            "gateway/genesis/COSMO8.md", "gateway/genesis/BACKWARDS_PROTOCOL.md", "bin/index.html", "receipt/index.html", ".nojekyll"]
+            "gateway/genesis/COSMO8.md", "gateway/genesis/BACKWARDS_PROTOCOL.md", "bin/index.html", "receipt/index.html", "infofaq/index.html", ".nojekyll"]
 errors = []
 for name in required:
     p = root / name
@@ -64,6 +64,18 @@ if (root / "sitemap.xml").is_file():
     try:
         tree = ET.parse(root / "sitemap.xml")
         urls = [e.text for e in tree.iter() if e.tag.endswith("loc")]
+        from urllib.parse import urlsplit, unquote
+        for url in urls:
+            parsed = urlsplit(url or "")
+            if parsed.scheme != "https" or parsed.netloc != "infofaqs.com":
+                errors.append("Unexpected sitemap origin: " + repr(url))
+                continue
+            path = unquote(parsed.path).lstrip("/")
+            target = root / path
+            if not path or path.endswith("/"):
+                target = target / "index.html"
+            if not target.is_file() or target.is_symlink():
+                errors.append("Sitemap URL absent from public artifact: " + repr(url))
         if "https://infofaqs.com/marketplace.html" in urls:
             errors.append("Under-construction marketplace must not appear in sitemap")
         if any("marketplace-preview" in (u or "") for u in urls):
