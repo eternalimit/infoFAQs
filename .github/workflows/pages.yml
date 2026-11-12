@@ -56,9 +56,13 @@ jobs:
           test -f receipt/index.html
           test ! -L receipt/index.html
           cp receipt/index.html _site/receipt/index.html
+          mkdir -p _site/genesis
+          test -f genesis/by-monroe.html
+          test ! -L genesis/by-monroe.html
+          cp genesis/by-monroe.html _site/genesis/by-monroe.html
           cmp robots.txt robot.txt
           touch _site/.nojekyll
-          test "$(find _site -type f | wc -l)" -eq 23
+          test "$(find _site -type f | wc -l)" -eq 24
           test ! -e _site/marketplace
           test ! -e _site/ARCHIVE
           test ! -e _site/the-cube
