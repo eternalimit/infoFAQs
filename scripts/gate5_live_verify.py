@@ -22,6 +22,7 @@ URLS = [
     BASE + "/marketplace.html",
     BASE + "/mine/uni/",
     BASE + "/board/lipin.html",
+    BASE + "/infofaq/",
 ]
 report = {
     "timestamp_utc": datetime.datetime.now(datetime.timezone.utc).isoformat(),
@@ -141,6 +142,7 @@ for url, relative in (
     (BASE + "/marketplace.html", "marketplace.html"),
     (BASE + "/mine/uni/", "mine/uni/index.html"),
     (BASE + "/board/lipin.html", "board/lipin.html"),
+    (BASE + "/infofaq/", "infofaq/index.html"),
 ):
     source = Path(relative)
     if not source.is_file():
