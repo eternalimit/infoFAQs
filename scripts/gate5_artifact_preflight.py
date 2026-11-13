@@ -14,7 +14,7 @@ required = ["index.html", "404.html", "robots.txt", "robot.txt", "sitemap.xml",
             "marketplace.html", "marketplace-preview.html", "top-sites.html", "data/top-sites.json", "craft-engine.mjs", "artifact-library.mjs", "mine/uni/index.html",
             "gateway/genesis/index.html", "gateway/genesis/README.md",
             "gateway/genesis/COSMO8.md", "gateway/genesis/BACKWARDS_PROTOCOL.md", "bin/index.html", "receipt/index.html",
-            "genesis/by-monroe.html", "board/lipin.html", "infofaq/index.html", ".nojekyll"]
+            "genesis/by-monroe.html", "board/lipin.html", "infofaq/index.html", "ers-control-test.html", ".nojekyll"]
 errors = []
 for name in required:
     p = root / name

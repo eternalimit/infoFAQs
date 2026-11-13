@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://infofaqs.com/ers-control-test.html">
+<title>ERS Control Test Record | InfoFAQs.com</title>
+<meta name="description" content="InfoFAQs record of the verified C++20 Sudoku control smoke test, with all eight case results and the source checksum.">
+<style>
+:root{color-scheme:dark;font-family:system-ui,sans-serif;background:#0b1420;color:#f1f6fb}
+*{box-sizing:border-box} body{margin:0;border-top:4px solid #76e9bb}
+main{max-width:72rem;margin:auto;padding:2rem clamp(1rem,4vw,3rem) 3rem}
+a{color:#94efd0} a:focus-visible,[tabindex]:focus-visible{outline:2px solid #94efd0;outline-offset:4px}
+header{padding:1.4rem 0} h1{font-size:clamp(2rem,5vw,3.5rem);line-height:1.1;margin:.5rem 0}
+h2{font-size:1.3rem} p{line-height:1.55;color:#c0d0df}.badge{display:inline-block;color:#9bf3d0;background:#173d34;padding:.45rem .75rem;border-radius:.4rem;font-weight:700}
+.scroll{overflow:auto;border:1px solid #394b60;border-radius:.6rem}
+table{width:100%;min-width:42rem;border-collapse:collapse;font-variant-numeric:tabular-nums}
+th,td{padding:.75rem;text-align:right;border-bottom:1px solid #394b60} th:first-child,td:first-child,th:nth-child(2),td:nth-child(2){text-align:left}
+thead{background:#233347} tbody tr:nth-child(odd){background:#152536} tbody tr:last-child td{border-bottom:0}
+code{overflow-wrap:anywhere;color:#adf6dc} footer{margin-top:2rem}
+</style>
+</head>
+<body>
+<main>
+<nav aria-label="Site"><a href="https://infofaqs.com/">InfoFAQs.com</a></nav>
+<header>
+<p>Emergency Response System (ERS) record</p>
+<h1>Sudoku control smoke test</h1>
+<p><time datetime="2026-11-12">November 12, 2026</time> · C++20 control solver</p>
+<span class="badge">8 of 8 cases passed</span>
+<p>Scope covered propagation, backtracking and rejection of contradictory Sudoku clues. ERS alerting, dispatch and emergency response were outside the test scope.</p>
+</header>
+<section aria-labelledby="results">
+<h2 id="results">Verified run results</h2>
+<div class="scroll" role="region" aria-labelledby="results" tabindex="0">
+<table>
+<thead><tr><th scope="col">N</th><th scope="col">Case</th><th scope="col">Nodes</th><th scope="col">Guesses</th><th scope="col">Failed branches</th><th scope="col">Mask bytes</th><th scope="col">Time (ms)</th></tr></thead>
+<tbody>
+<tr><td>9</td><td>Propagation</td><td>1</td><td>0</td><td>0</td><td>648</td><td>0.017836</td></tr>
+<tr><td>49</td><td>Propagation</td><td>1</td><td>0</td><td>0</td><td>19,208</td><td>0.985554</td></tr>
+<tr><td>64</td><td>Propagation</td><td>1</td><td>0</td><td>0</td><td>32,768</td><td>2.50391</td></tr>
+<tr><td>81</td><td>Propagation</td><td>1</td><td>0</td><td>0</td><td>104,976</td><td>5.61279</td></tr>
+<tr><td>100</td><td>Propagation</td><td>1</td><td>0</td><td>0</td><td>160,000</td><td>8.67111</td></tr>
+<tr><td>256</td><td>Propagation</td><td>1</td><td>0</td><td>0</td><td>2,097,152</td><td>191.96</td></tr>
+<tr><td>9</td><td>Backtracking</td><td>15</td><td>22</td><td>12</td><td>648</td><td>0.057142</td></tr>
+<tr><td>9</td><td>Contradictory clues rejected</td><td>0</td><td>0</td><td>0</td><td>648</td><td>0.001263</td></tr>
+</tbody>
+</table>
+</div>
+<p>Mask bytes measure mask storage only.</p>
+</section>
+<footer>
+<h2>Verification receipt</h2>
+<p>The executable returned exit code <code>0</code> within the 60-second limit. The source SHA-256 matched:</p>
+<p><code>4a65ef2e914e3939aa4cedd991d0afa3adccd3e572d82f6ad880e5b448ce78eb</code></p>
+<p>Build flags <code>g++ -O3 -std=c++20 -Wall -Wextra -Wpedantic</code></p>
+</footer>
+</main>
+</body>
+</html>
