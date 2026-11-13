@@ -6,6 +6,7 @@ import json
 import re
 import sys
 import xml.etree.ElementTree as ET
+from urllib.parse import urlsplit, unquote
 
 root = Path("_site")
 required = ["index.html", "404.html", "robots.txt", "robot.txt", "sitemap.xml",
@@ -13,7 +14,7 @@ required = ["index.html", "404.html", "robots.txt", "robot.txt", "sitemap.xml",
             "marketplace.html", "marketplace-preview.html", "top-sites.html", "data/top-sites.json", "craft-engine.mjs", "artifact-library.mjs", "mine/uni/index.html",
             "gateway/genesis/index.html", "gateway/genesis/README.md",
             "gateway/genesis/COSMO8.md", "gateway/genesis/BACKWARDS_PROTOCOL.md", "bin/index.html", "receipt/index.html",
-            "genesis/by-monroe.html", "board/lipin.html", ".nojekyll"]
+            "genesis/by-monroe.html", "board/lipin.html", "infofaq/index.html", ".nojekyll"]
 errors = []
 for name in required:
     p = root / name
@@ -65,6 +66,16 @@ if (root / "sitemap.xml").is_file():
     try:
         tree = ET.parse(root / "sitemap.xml")
         urls = [e.text for e in tree.iter() if e.tag.endswith("loc")]
+        for url in urls:
+            parts = urlsplit(url or "")
+            if parts.scheme != "https" or parts.netloc != "infofaqs.com":
+                errors.append(f"Invalid sitemap URL: {url}")
+                continue
+            target = root / unquote(parts.path).lstrip("/")
+            if target.is_dir():
+                target /= "index.html"
+            if not target.is_file():
+                errors.append(f"Sitemap URL missing from Pages artifact: {url}")
         if "https://infofaqs.com/marketplace.html" in urls:
             errors.append("Under-construction marketplace must not appear in sitemap")
         if any("marketplace-preview" in (u or "") for u in urls):
@@ -88,7 +99,6 @@ if (root / "data/top-sites.json").is_file():
         errors.append("Invalid Top Sites catalog JSON: " + str(exc))
 # Audit every local href/src in published HTML before deployment.
 from html.parser import HTMLParser
-from urllib.parse import urlsplit, unquote
 class LocalLinks(HTMLParser):
     def __init__(self):
         super().__init__()

@@ -64,9 +64,13 @@ jobs:
           test -f board/lipin.html
           test ! -L board/lipin.html
           cp board/lipin.html _site/board/lipin.html
+          mkdir -p _site/infofaq
+          test -f infofaq/index.html
+          test ! -L infofaq/index.html
+          cp infofaq/index.html _site/infofaq/index.html
           cmp robots.txt robot.txt
           touch _site/.nojekyll
-          test "$(find _site -type f | wc -l)" -eq 25
+          test "$(find _site -type f | wc -l)" -eq 26
           test ! -e _site/marketplace
           test ! -e _site/ARCHIVE
           test ! -e _site/the-cube
