@@ -1,0 +1,58 @@
+{
+  "name": "InfoFAQs",
+  "title": "Site Index",
+  "url": "https://infofaqs.com/site-index.html",
+  "pages": [
+    {
+      "title": "Home",
+      "url": "https://infofaqs.com/",
+      "description": "Main entry point for InfoFAQs."
+    },
+    {
+      "title": "InfoFAQ",
+      "url": "https://infofaqs.com/infofaq/",
+      "description": "Information and frequently asked questions."
+    },
+    {
+      "title": "CATBOT100",
+      "url": "https://infofaqs.com/catbot100.html",
+      "description": "CATBOT100 project page."
+    },
+    {
+      "title": "Receipts",
+      "url": "https://infofaqs.com/receipt/",
+      "description": "Project receipts and supporting records."
+    },
+    {
+      "title": "10 FAQs",
+      "url": "https://infofaqs.com/10-faqs.html",
+      "description": "Ten FAQs resource."
+    },
+    {
+      "title": "MINE.UNI",
+      "url": "https://infofaqs.com/mine/uni/",
+      "description": "MINE.UNI project area."
+    },
+    {
+      "title": "BIN",
+      "url": "https://infofaqs.com/bin/",
+      "description": "BIN research and notes."
+    },
+    {
+      "title": "Top Sites",
+      "url": "https://infofaqs.com/top-sites.html",
+      "description": "Directory of featured sites."
+    },
+    {
+      "title": "Genesis: * by Monroe",
+      "url": "https://infofaqs.com/genesis/by-monroe.html",
+      "description": "Genesis artwork and its associated links."
+    },
+    {
+      "title": "ERS Control Test",
+      "url": "https://infofaqs.com/ers-control-test.html",
+      "description": "Published ERS control-test record."
+    }
+  ],
+  "copyright": "© 2026 Richard Stein. All Rights Reserved."
+}
