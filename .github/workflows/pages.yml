@@ -82,3 +82,29 @@ jobs:
       - name: Deploy website
         id: deployment
         uses: actions/deploy-pages@v4
+      - name: Verify live production sitemap and robots
+        shell: bash
+        run: |
+          set -euo pipefail
+          for path in sitemap.xml robots.txt; do
+            url="https://infofaqs.com/$path"
+            ok=0
+            for attempt in $(seq 1 12); do
+              if curl --fail --silent --show-error --location --retry 2 --retry-delay 3 --max-time 20 "$url" -o "/tmp/$path"; then
+                ok=1
+                break
+              fi
+              sleep 10
+            done
+            if [ "$ok" -ne 1 ]; then
+              echo "::error::Production endpoint unavailable: $url"
+              exit 1
+            fi
+            cmp "_site/$path" "/tmp/$path" || {
+              echo "::error::Production content differs from deployed artifact: $url"
+              exit 1
+            }
+            sha256sum "_site/$path" "/tmp/$path"
+            echo "PASS: $url matches deployed artifact byte-for-byte"
+          done
+
