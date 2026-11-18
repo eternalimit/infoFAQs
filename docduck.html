@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DocDuck by LightOn | InfoFAQs.com</title>
+  <meta name="description" content="An InfoFAQs guide to LightOn’s DocDuck, a tool for generating synthetic test pages for OCR and document understanding.">
+  <link rel="canonical" href="https://infofaqs.com/docduck.html">
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: system-ui, sans-serif;
+      background: #0b1420;
+      color: #f1f6fb;
+    }
+    body { margin: 0; border-top: 4px solid #76e9bb; }
+    main { max-width: 44rem; margin: auto; padding: 2rem clamp(1rem, 5vw, 3rem) 4rem; }
+    header { margin: 3rem 0 2rem; }
+    h1 { font-size: clamp(2rem, 7vw, 4rem); line-height: 1.1; margin: 0; }
+    h2 { font-size: 1.35rem; margin: 0 0 .75rem; }
+    p { color: #c0d0df; line-height: 1.65; margin: .75rem 0; }
+    section { padding: clamp(1rem, 4vw, 1.75rem); border: 1px solid #394b60; border-radius: .75rem; background: #152536; }
+    a { color: #94efd0; text-underline-offset: .2em; }
+    a:focus-visible { outline: 2px solid #94efd0; outline-offset: 4px; }
+    .repository { display: inline-block; margin-top: .75rem; font-weight: 700; }
+  </style>
+</head>
+<body>
+  <main>
+    <nav aria-label="Site"><a href="/">InfoFAQs.com Home</a></nav>
+    <header>
+      <h1>DocDuck by LightOn</h1>
+      <p>Generate synthetic documents to test optical character recognition (OCR) and document understanding.</p>
+    </header>
+    <section aria-labelledby="how-it-works">
+      <h2>How it works</h2>
+      <p>DocDuck generates pages with varied layouts and typography. Each page comes with the expected text and bounding boxes that identify where each block appears. You can compare your model’s output with those reference values to see what it read and located correctly.</p>
+      <a class="repository" href="https://github.com/lightonai/docduck">View LightOn’s DocDuck on GitHub</a>
+    </section>
+    <p>InfoFAQs verified the LightOn repository. Its relationship to docduck.ai is unverified.</p>
+  </main>
+</body>
+</html>
