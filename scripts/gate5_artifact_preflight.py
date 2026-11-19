@@ -76,6 +76,8 @@ if (root / "sitemap.xml").is_file():
                 target /= "index.html"
             if not target.is_file():
                 errors.append(f"Sitemap URL missing from Pages artifact: {url}")
+        if "https://infofaqs.com/gateway/genesis/" in urls:
+            errors.append("Noindex Genesis gateway must not appear in sitemap")
         if "https://infofaqs.com/marketplace.html" in urls:
             errors.append("Under-construction marketplace must not appear in sitemap")
         if any("marketplace-preview" in (u or "") for u in urls):
