@@ -14,7 +14,7 @@ required = ["index.html", "site-index.html", "site-index.json", "404.html", "rob
             "marketplace.html", "marketplace-preview.html", "top-sites.html", "data/top-sites.json", "craft-engine.mjs", "artifact-library.mjs", "mine/uni/index.html",
             "gateway/genesis/index.html", "gateway/genesis/README.md",
             "gateway/genesis/COSMO8.md", "gateway/genesis/BACKWARDS_PROTOCOL.md", "bin/index.html", "receipt/index.html",
-            "genesis/by-monroe.html", "board/lipin.html", "infofaq/index.html", "ers-control-test.html", ".nojekyll"]
+            "genesis/by-monroe.html", "board/lipin.html", "infofaq/index.html", "ers-control-test.html", "infofaqs-ai.html", ".nojekyll"]
 errors = []
 for name in required:
     p = root / name
@@ -37,6 +37,8 @@ if (root / "index.html").is_file():
     home = (root / "index.html").read_text(encoding="utf-8")
     if 'href="marketplace.html"' not in home:
         errors.append("Homepage does not link to final marketplace")
+    if 'href="/infofaqs-ai.html"' not in home:
+        errors.append("Homepage does not link to InfoFAQs.ai")
     if "marketplace-preview.html" in home:
         errors.append("Homepage still links to preview marketplace")
 if (root / "marketplace-preview.html").is_file():
