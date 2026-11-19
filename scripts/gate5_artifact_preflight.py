@@ -76,6 +76,26 @@ if (root / "sitemap.xml").is_file():
                 target /= "index.html"
             if not target.is_file():
                 errors.append(f"Sitemap URL missing from Pages artifact: {url}")
+            elif target.suffix.lower() == ".html":
+                from html.parser import HTMLParser
+                class RobotsMetaParser(HTMLParser):
+                    def __init__(self):
+                        super().__init__()
+                        self.noindex = False
+                    def handle_starttag(self, tag, attrs):
+                        if tag.lower() != "meta":
+                            return
+                        attributes = dict(attrs)
+                        name = (attributes.get("name") or "").lower()
+                        directives = (attributes.get("content") or "").lower()
+                        if name in ("robots", "googlebot") and "noindex" in [
+                            directive.strip() for directive in directives.split(",")
+                        ]:
+                            self.noindex = True
+                parser = RobotsMetaParser()
+                parser.feed(target.read_text(encoding="utf-8"))
+                if parser.noindex:
+                    errors.append(f"Sitemap lists a noindex HTML page: {url}")
         if "https://infofaqs.com/gateway/genesis/" in urls:
             errors.append("Noindex Genesis gateway must not appear in sitemap")
         if "https://infofaqs.com/marketplace.html" in urls:
