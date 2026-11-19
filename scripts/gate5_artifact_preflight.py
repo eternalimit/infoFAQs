@@ -82,10 +82,15 @@ if (root / "sitemap.xml").is_file():
                     def __init__(self):
                         super().__init__()
                         self.noindex = False
+                        self.canonicals = []
                     def handle_starttag(self, tag, attrs):
+                        attributes = dict(attrs)
+                        if tag.lower() == "link":
+                            rel = (attributes.get("rel") or "").lower().split()
+                            if "canonical" in rel:
+                                self.canonicals.append(attributes.get("href") or "")
                         if tag.lower() != "meta":
                             return
-                        attributes = dict(attrs)
                         name = (attributes.get("name") or "").lower()
                         directives = (attributes.get("content") or "").lower()
                         if name in ("robots", "googlebot") and "noindex" in [
@@ -96,6 +101,11 @@ if (root / "sitemap.xml").is_file():
                 parser.feed(target.read_text(encoding="utf-8"))
                 if parser.noindex:
                     errors.append(f"Sitemap lists a noindex HTML page: {url}")
+                if parser.canonicals != [url]:
+                    errors.append(
+                        f"Sitemap HTML canonical must match its URL exactly: {url}; "
+                        f"found {parser.canonicals!r}"
+                    )
         if "https://infofaqs.com/gateway/genesis/" in urls:
             errors.append("Noindex Genesis gateway must not appear in sitemap")
         if "https://infofaqs.com/marketplace.html" in urls:
