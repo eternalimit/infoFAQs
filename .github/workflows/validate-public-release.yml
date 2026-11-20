@@ -1,8 +1,11 @@
 name: Validate public InfoFAQs release
 on:
   pull_request:
+  workflow_dispatch:
   push:
     branches:
+      - main
+      - seo-identity-repair-20261109
       - fix/public-homepage-real-product-2026
 jobs:
   validate:
